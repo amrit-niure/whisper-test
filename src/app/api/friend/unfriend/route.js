@@ -20,6 +20,7 @@ export async function POST(req){
     if (!friend) {
         return new Response("Friend does not exist", { status: 401 })
     }
+    // check even both users are friends or not
     const areAlreadyFriends = session_user.friends.some(
         (friend) => friend._id.toString() === id
     );
@@ -38,7 +39,7 @@ export async function POST(req){
        }
         const updatedUser2 = await User.findByIdAndUpdate(
            friend._id,
-           { $pull: { friends: friend._id } },
+           { $pull: { friends: session_user._id } },
            { new: true }
        );
        if (!updatedUser2) {
