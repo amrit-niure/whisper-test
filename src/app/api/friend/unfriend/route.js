@@ -48,5 +48,5 @@ export async function POST(req){
    } catch (error) {
        console.log("Error while making changes related to unfriend in database")
    }
-   return NextResponse.json({ success : true , message: "Unfriend Task Completed" }, { status: 404 });
+   return NextResponse.json({ success : true , message: "Unfriend Task Completed" }, { status: 200 });
 }

@@ -59,7 +59,9 @@
 
 import { authOptions } from "@/lib/auth"
 import connectionDB from "@/lib/db"
+import Chat from "@/modal/chatSchema"
 import User from "@/modal/userSchema"
+import mongoose from "mongoose"
 import { getServerSession } from "next-auth"
 import { NextResponse } from "next/server"
 
@@ -122,11 +124,24 @@ export async function POST(req) {
             { $pull: { incoming_request: friend._id } },
             { new: true }
         );
+
+        // add chats feild and insert friend in the partner object of both users
+        const chat = new Chat({
+            participants: [
+              session_user._id,
+              friend._id
+            ],
+            messages: []
+          });
+          
+          const savedChat = await chat.save();
+          console.log(savedChat)
         if (!updatedUser) {
             return NextResponse.json({ message: "User Not found !" }, { status: 404 });
         }
     } catch (error) {
-        return NextResponse.json({ message: "Error while writing to database" }, { status: 500 });
+        // return NextResponse.json({ message: "Error while writing to database",error }, { status: 500 });
+        return new Response(error,{ status: 401 })
     }
 
     return NextResponse.json({ success: true, message: "Friend Request Accepted Succesfully" }, { status: 200 });
