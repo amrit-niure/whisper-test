@@ -64,7 +64,9 @@ import { getServerSession } from "next-auth"
 import { NextResponse } from "next/server"
 
 export async function POST(req) {
+
     const { id } = await req.json()
+
     if (!id) {
         return new Response("Please provide an id", { status: 400 })
     }
@@ -75,11 +77,11 @@ export async function POST(req) {
     await connectionDB()
     // check if there is incomming request 
     const session_user = await User.findById(session.user.id)
-    const isIncomingRequest = session_user.incoming_request.map(
-        (incomingReqId) => console.log(incomingReqId)
+    const isIncomingRequest = session_user.incoming_request.some(
+        (req) => req.toString() === id
     );
     if (!isIncomingRequest) {
-        return NextResponse.json({ status: 'success', message: `You No longer have request of this user.` }, { status: 401 });
+        return NextResponse.json({ status: 'success', message: `You No longer have request of this user.` }, { status: 404 });
     }
     // // first find the friend on the database
     const friend = await User.findById(id)
@@ -100,13 +102,13 @@ export async function POST(req) {
         (friend) => friend._id.toString() === id
     );
     if (areAlreadyFriends) {
-        return NextResponse.json({ status: 'success', message: `Your both are already friends` }, { status: 401 });
+        return NextResponse.json({ status: 'success', message: `Your both are already friends` }, { status: 200 });
     }
-    
+
     try {
         await User.findByIdAndUpdate(
             session_user._id,
-            { $push: { friends: friend._id } },
+            { $push: { friends: id} },
             { new: true, useFindAndModify: false }
         )
         await User.findByIdAndUpdate(
@@ -127,5 +129,5 @@ export async function POST(req) {
         return NextResponse.json({ message: "Error while writing to database" }, { status: 500 });
     }
 
-    return NextResponse.json({success : true, message: "Friend Request Accepted Succesfully" }, { status: 200 });
+    return NextResponse.json({ success: true, message: "Friend Request Accepted Succesfully" }, { status: 200 });
 }  
