@@ -6,7 +6,7 @@ import User from "@/modal/userSchema"
 import { getServerSession } from "next-auth"
 import { NextResponse } from "next/server"
 
-export async function POST(req, { params }) {
+export async function GET(req, { params }) {
     const session = await getServerSession(authOptions)
     if (!session) return new Response('Unauthorized', { status: 401 })
     const { groupId, userId } = params;
