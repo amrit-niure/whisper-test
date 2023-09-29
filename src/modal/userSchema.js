@@ -12,12 +12,22 @@ const userSchema = new Schema({
   image: String,
   friends : [
     {type: Schema.Types.ObjectId, 
-      ref: 'Users' 
+      ref: 'User' 
     }
   ],
   incoming_request : [
     {type: Schema.Types.ObjectId, 
-      ref: 'Users' 
+      ref: 'User' 
+    }
+  ],
+  groups : [
+    {type: Schema.Types.ObjectId, 
+      ref: 'Room' 
+    }
+  ],
+  group_invitation : [
+    {type: Schema.Types.ObjectId, 
+      ref: 'Room' 
     }
   ],
 
