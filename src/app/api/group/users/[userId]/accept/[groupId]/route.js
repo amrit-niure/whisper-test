@@ -44,5 +44,4 @@ export async function GET(req, { params }) {
         console.error("Error sending invitation:", error);
         return NextResponse.json({ message: "Internal Server Error" }, { status: 500 })
     }
-
 }
