@@ -38,7 +38,7 @@ const page = async () => {
     console.error('Error:', error);
   }
 if(!incoming_request){
-  retrun (<div>Loading...</div>)
+  return (<div>Loading...</div>)
 }
   return (
     <div className='px-8 py-8 flex flex-col gap-3 bg-light_bg h-full'>
