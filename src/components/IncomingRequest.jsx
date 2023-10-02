@@ -46,7 +46,7 @@ const IncomingRequest = ({ incoming_request }) => {
     }
     return (
         <div>
-            {/* <Toaster />
+            <Toaster />
             {friendRequests?.length === 0 ? (
                 <p className='text-sm text-zinc-500'>No friend requests...</p>
             ) : (
@@ -88,8 +88,6 @@ const IncomingRequest = ({ incoming_request }) => {
                     </div>
                 )))
             } 
-        */}
-        <h1>No friend Requests..</h1>
         </div>
     )
 }

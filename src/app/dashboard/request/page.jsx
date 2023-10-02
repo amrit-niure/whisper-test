@@ -10,7 +10,7 @@ import IncomingRequest from '@/components/IncomingRequest';
 const page = async () => {
   try {
     const cookieStore = cookies();
-    const cookie = cookieStore.get('__Secure-next-auth.session-token');
+    const cookie = cookieStore.get(process.env.COOKIE_NAME);
     
     const session = await getServerSession(authOptions);
     let today = new Date();
