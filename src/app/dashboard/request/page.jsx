@@ -20,7 +20,7 @@ const page = async () => {
   let response;
   let incoming_request
   try {
-    const apiUrl = `${process.env.NEXTAUTH_URL}/api/friend/${session.user.id}`;
+    const apiUrl = `https://whisper-liard.vercel.app/api/friend/${session.user.id}`;
     response = await axios.get(apiUrl, {
       headers: {
         'Cookie': `${cookie.name}=${cookie.value}`
