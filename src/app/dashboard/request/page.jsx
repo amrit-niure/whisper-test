@@ -1,4 +1,3 @@
-
 import { authOptions } from '@/lib/auth'
 import { Sun } from '@/components/Icons';
 import { getServerSession } from 'next-auth'
@@ -17,15 +16,21 @@ const page = async () => {
 
   // Get list of friend request
 
-    const apiUrl = `${process.env.NEXTAUTH_URL}/api/friend/6513772c2c1a1bbc4669e656`;
-   const response = await axios.get(apiUrl, {
+  let response;
+  let incoming_request
+  try {
+    const apiUrl = `${process.env.NEXTAUTH_URL}/api/friend/${session.user?.id}`;
+    console.log("Logging API URL : ",apiUrl)
+    response = await axios.get(apiUrl, {
       headers: {
         'Cookie': `${cookie.name}=${cookie.value}`
       }
     });
-    const incoming_req = response.data.user.incoming_request
-    console.log("Incoming Request request/page.jsx",incoming_req)
-
+    incoming_request = response.data.user.incoming_request
+    console.log("Incoming Request request/page.jsx",incoming_request)
+  } catch (error) {
+    console.error('Error:', error);
+  }
 
   return (
     <div className='px-8 py-8 flex flex-col gap-3 bg-light_bg h-full'>
@@ -46,7 +51,7 @@ const page = async () => {
       </div>
 
       <div>
-        <IncomingRequest incoming_request={incoming_req} />
+        <IncomingRequest incoming_request={incoming_request} />
       </div>
     </div>
   )
