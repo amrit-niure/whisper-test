@@ -17,20 +17,15 @@ const page = async () => {
 
   // Get list of friend request
 
-  let response;
-  let incoming_request
-  try {
     const apiUrl = `${process.env.NEXTAUTH_URL}/api/friend/6513772c2c1a1bbc4669e656`;
-    response = await axios.get(apiUrl, {
+   const response = await axios.get(apiUrl, {
       headers: {
         'Cookie': `${cookie.name}=${cookie.value}`
       }
     });
-    incoming_request = response.data.user.incoming_request
-    console.log("Incoming Request request/page.jsx",incoming_request)
-  } catch (error) {
-    console.error('Error:', error);
-  }
+    const incoming_req = response.data.user.incoming_request
+    console.log("Incoming Request request/page.jsx",incoming_req)
+
 
   return (
     <div className='px-8 py-8 flex flex-col gap-3 bg-light_bg h-full'>
@@ -51,7 +46,7 @@ const page = async () => {
       </div>
 
       <div>
-        <IncomingRequest incoming_request={"incoming_request"} />
+        <IncomingRequest incoming_request={incoming_req} />
       </div>
     </div>
   )
