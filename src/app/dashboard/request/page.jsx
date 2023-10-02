@@ -49,10 +49,9 @@ const page = async () => {
       <div>
         <h1 className='text-big font-semibold'>Incoming Requests</h1>
       </div>
-      <IncomingRequest incoming_request={incoming_request} />
 
       <div>
-        <IncomingRequest incoming_request={incoming_request} />
+        <IncomingRequest incoming_request={"incoming_request"} />
       </div>
     </div>
   )
