@@ -2,7 +2,6 @@
 import { authOptions } from '@/lib/auth'
 import { Sun } from '@/components/Icons';
 import { getServerSession } from 'next-auth'
-import Image from 'next/image'
 import React from 'react'
 import axios from 'axios'
 import { cookies } from 'next/headers'
@@ -52,6 +51,8 @@ const page = async () => {
       <div>
         <h1 className='text-big font-semibold'>Incoming Requests</h1>
       </div>
+      <IncomingRequest incoming_request={incoming_request} />
+
       <div>
         <IncomingRequest incoming_request={incoming_request} />
       </div>
