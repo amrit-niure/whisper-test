@@ -21,7 +21,7 @@ const page = async () => {
   let response;
   let incoming_request
   try {
-    const apiUrl = `http://localhost:3000/api/friend/${session.user.id}`;
+    const apiUrl = `${process.env.NEXTAUTH_URL}/api/friend/${session.user.id}`;
     response = await axios.get(apiUrl, {
       headers: {
         'Cookie': `${cookie.name}=${cookie.value}`
@@ -54,7 +54,6 @@ const page = async () => {
       </div>
       <div>
         <IncomingRequest incoming_request={incoming_request} />
-
       </div>
     </div>
   )
