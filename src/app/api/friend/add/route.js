@@ -72,5 +72,5 @@ console.log(email)
     } catch (error) {
         console.log("Error While writing to databse",error)
     }
-    return NextResponse.json({ status: 'success', message: `Request succesfully sent to  ` }, { status: 200 });
+    return NextResponse.json({ status: 'success', message: `Request succesfully sent to  ${requestedUser.name}` }, { status: 200 });
 }
