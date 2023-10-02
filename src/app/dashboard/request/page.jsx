@@ -27,12 +27,10 @@ const page = async () => {
       }
     });
     incoming_request = response.data.user.incoming_request
+    console.log("Incoming Request request/page.jsx",incoming_request)
   } catch (error) {
     console.error('Error:', error);
   }
-
-
-
 
   return (
     <div className='px-8 py-8 flex flex-col gap-3 bg-light_bg h-full'>
