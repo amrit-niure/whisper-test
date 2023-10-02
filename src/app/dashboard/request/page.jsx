@@ -37,7 +37,9 @@ const page = async () => {
   } catch (error) {
     console.error('Error:', error);
   }
-
+if(!incoming_request){
+  retrun (<div>Loading...</div>)
+}
   return (
     <div className='px-8 py-8 flex flex-col gap-3 bg-light_bg h-full'>
       {/* Good Morning Header */}
@@ -57,7 +59,7 @@ const page = async () => {
       </div>
 
       <div>
-      { incoming_request && <IncomingRequest incoming_request={incoming_request} />}
+       <IncomingRequest incoming_request={incoming_request} />
       </div>
     </div>
   )
