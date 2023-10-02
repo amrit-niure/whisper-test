@@ -8,42 +8,42 @@ import axios from 'axios'
 import { Toaster, toast } from 'react-hot-toast'
 
 const IncomingRequest = ({ incoming_request }) => {
-    // const router = useRouter()
-    // const [friendRequests, setFriendRequests] = useState(
-    //     incoming_request
-    // )
-    // console.log(friendRequests)
+    const router = useRouter()
+    const [friendRequests, setFriendRequests] = useState(
+        incoming_request
+    )
+    console.log(friendRequests)
 
 
-    // const acceptFriend = async (senderId) => {
-    //     try {
-    //         await axios.post('/api/friend/request/accept', { id: senderId })
-    //         setFriendRequests((prev) =>
-    //             prev.filter((request) => request._id !== senderId)
-    //         )
-    //         toast.success("Friend Request Accepted !")
-    //     } catch (error) {
-    //         toast(error.response?.data?.message || 'An error occurred', { duration: 2000, icon: '☠️' });
-    //     } finally {
-    //         router.refresh()
-    //     }
-    // }
+    const acceptFriend = async (senderId) => {
+        try {
+            await axios.post('/api/friend/request/accept', { id: senderId })
+            setFriendRequests((prev) =>
+                prev.filter((request) => request._id !== senderId)
+            )
+            toast.success("Friend Request Accepted !")
+        } catch (error) {
+            toast(error.response?.data?.message || 'An error occurred', { duration: 2000, icon: '☠️' });
+        } finally {
+            router.refresh()
+        }
+    }
 
 
 
-    // const denyFriend = async (senderId) => {
-    //     try {
-    //         await axios.post('/api/friend/request/deny', { id: senderId })
+    const denyFriend = async (senderId) => {
+        try {
+            await axios.post('/api/friend/request/deny', { id: senderId })
 
-    //         setFriendRequests((prev) =>
-    //             prev.filter((request) => request._id !== senderId)
-    //         )
-    //         toast.success("Friend Request Denied !")
-    //     } catch (error) {
-    //         toast(error.response?.data?.message || 'An error occurred', { duration: 2000, icon: '☠️' });
-    //     }
-    //     router.refresh()
-    // }
+            setFriendRequests((prev) =>
+                prev.filter((request) => request._id !== senderId)
+            )
+            toast.success("Friend Request Denied !")
+        } catch (error) {
+            toast(error.response?.data?.message || 'An error occurred', { duration: 2000, icon: '☠️' });
+        }
+        router.refresh()
+    }
     return (
         <div>
             {/* <Toaster />
