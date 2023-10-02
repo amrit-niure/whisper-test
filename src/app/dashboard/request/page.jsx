@@ -41,7 +41,7 @@ const page = async () => {
       <div className='flex items-baseline justify-between'>
         <div className='flex items-baseline gap-2'>
           <Sun />
-          <h1 className='text-big'>Good Morning, <b>{session.user.name.split(' ')[0]}</b></h1>
+          <h1 className='text-big'>Good Morning, <b>{session?.user.name.split(' ')[0]}</b></h1>
         </div>
         <div className='text-sm'>
           {today}
