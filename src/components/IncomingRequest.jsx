@@ -12,7 +12,7 @@ const IncomingRequest = ({ incoming_request }) => {
     const [friendRequests, setFriendRequests] = useState(
         incoming_request
     )
-    console.log("Friend Requests :",friendRequests)
+    console.log("Friend Requests :",incoming_request)
 
 
     const acceptFriend = async (senderId) => {
