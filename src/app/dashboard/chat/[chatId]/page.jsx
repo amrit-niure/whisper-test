@@ -15,7 +15,7 @@ import Message from '@/components/Message'
 const page = async ({ params }) => {
   const { chatId } = params
   const cookieStore = cookies()
-  const cookie = cookieStore.get('next-auth.session-token')
+  const cookie = cookieStore.get(process.env.COOKIE_NAME)
   const session = await getServerSession(authOptions);
   if (!session) notFound();
   const { user } = session;
