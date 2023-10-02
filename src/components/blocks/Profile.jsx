@@ -1,19 +1,19 @@
-"use client"
-import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import React from 'react'
 
-const Profile = ({name,image,email,line=true}) => {
+const Profile = ({name,image="/avatar.jpg",email,line=true}) => {
+
   return (
     <div className='flex gap-4 flex-col px-4 pt-8'>
       <div className='flex gap-2'>
-        <Image
+        { <Image
           src={image}
           alt="User Photo"
           width={50}
           height={50}
           className='rounded-full'
-        />
+        />}
+      
         <div>
           <h2 className='text-big font-semibold '>{name}</h2>
           <p className='text-small text-secondary'>{email}</p>

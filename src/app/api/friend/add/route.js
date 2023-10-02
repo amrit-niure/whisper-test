@@ -6,7 +6,7 @@ import { NextResponse } from "next/server"
 
 export async function POST(req) {
     const { email } = await req.json()
-
+console.log(email)
     if (!email) {
         return new Response("Please provide an email address", { status: 400 })
     }
@@ -72,5 +72,5 @@ export async function POST(req) {
     } catch (error) {
         console.log("Error While writing to databse",error)
     }
-    return NextResponse.json({ status: 'success', message: `Request succesfully sent to ${requestedUser.name} ` }, { status: 200 });
+    return NextResponse.json({ status: 'success', message: `Request succesfully sent to  ` }, { status: 200 });
 }
