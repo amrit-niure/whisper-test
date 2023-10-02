@@ -6,8 +6,8 @@ const public_sans = Public_Sans({ subsets: ['latin'], weight: ['100', '200', '30
 const delius = Delius_Swash_Caps({ subsets: ['latin'], weight: ['400'] })
 
 export const metadata = {
-  title: 'Socket IO Chat App',
-  description: 'Amrit Niure Chat App - Wishper',
+  title: 'Whisper',
+  description: 'Real time chat app wishper',
 }
 
 export default function RootLayout({ children }) {

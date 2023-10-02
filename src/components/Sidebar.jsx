@@ -49,14 +49,12 @@ const Sidebar = () => {
       <div>
         <div className="flex justify-between px-4">
           <h2 className=" text-primary font-semibold mb-2 ">Friends</h2>
-          {/* <span><Plus size={20} className='cursor-pointer  text-primary' /> </span> */}
         </div>
         <ul className=''>
           {friends?.map((friend,index) => (
              <Link href={`/dashboard/chat/${data.user.id}--${friend._id}`} key={friend._id}
              className='relative'
              ><li
-              
               className=" pl-6 pr-4 py-2 flex gap-2 items-center hover:bg-light_bg_chat cursor-pointer relative "
             >
               <div className='flex gap-2 items-center'>
@@ -69,15 +67,11 @@ const Sidebar = () => {
                 />}</span>
                 <span>{friend.name}</span>
               </div>
-              {/* <span className='bg-primary text-postitive rounded-full w-5 h-5 flex items-center justify-center text-xs ml-auto'>2</span> */}
-             
             </li>
-      
             </Link>
           ))}
         </ul>
       </div>
-
       {/* Group List */}
       <div>
         <div className="flex justify-between px-4">
@@ -96,7 +90,7 @@ const Sidebar = () => {
         </ul>
       </div>
       <div className='pl-4 py-2 mt-auto relative'>
-        <h1 className='flex text-primary gap-2 cursor-pointer w-fit' onClick={() => setShow(!show)}><Cog size={20} /> Settings</h1>
+        <h1 className='flex text-primary gap-2 cursor-pointer w-fit hover:text-blue-800 hover:underline' onClick={() => setShow(!show)}><Cog size={20} /> Settings</h1>
         <p className='flex text-primary gap-2 pl-1  text-small '> <GitMerge size={15} />Version 1.0</p>
         {show && <div className='absolute -top-14 right-10 w-3/5 rounded-lg bg-slate-200  py-2'>
           <p className='hover:bg-light_bg_chat cursor-pointer px-2 py-1 flex gap-2' onClick={() => signOut()}> <LogOut /> Log Out</p>
