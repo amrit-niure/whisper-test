@@ -19,13 +19,19 @@ const page = async () => {
   let response;
   let incoming_request
   try {
-    const apiUrl = `${process.env.NEXTAUTH_URL}/api/friend/${session.user?.id}`;
-    console.log("Logging API URL : ",apiUrl)
-    response = await axios.get(apiUrl, {
-      headers: {
-        'Cookie': `${cookie.name}=${cookie.value}`
+    if (session && session.user) {  // Check if session.user is defined
+      const apiUrl = `${process.env.NEXTAUTH_URL}/api/friend/${session.user.id}`;
+      console.log("Logging API URL: ", apiUrl);
+      
+      response = await axios.get(apiUrl, {
+        headers: {
+          'Cookie': `${cookie.name}=${cookie.value}`
+        }
+      })
+     } else {
+        // Handle the case when session.user is undefined
+        console.error('Error: session.user is undefined');
       }
-    });
     incoming_request = response.data.user.incoming_request
     console.log("Incoming Request request/page.jsx",incoming_request)
   } catch (error) {
