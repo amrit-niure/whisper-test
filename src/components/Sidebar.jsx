@@ -42,7 +42,7 @@ const Sidebar = () => {
         <h2 className=" text-primary font-semibold mb-2 px-4">Dashboard</h2>
         <ul>
           <Link href={'/dashboard'}><li className=' pl-6 py-2 flex gap-2 hover:bg-light_bg_chat cursor-pointer'><GrHomeRounded className='text-xl  text-primary' /> Home</li> </Link>
-          <Link href={'/dashboard/request'}>  <li className=' pl-6 pr-4 py-2 flex gap-2 hover:bg-light_bg_chat cursor-pointer'> <UserPlus className='text-xl  text-primary' /> Requests   <span className='bg-primary text-postitive rounded-full w-5 h-5 flex items-center justify-center text-small ml-auto'>2</span> </li></Link>
+          <Link href={'/dashboard/request'}>  <li className=' pl-6 pr-4 py-2 flex gap-2 hover:bg-light_bg_chat cursor-pointer'> <UserPlus className='text-xl  text-primary' /> Requests   {user.incoming_request?.length !==0 && <span className='bg-primary text-postitive rounded-full w-5 h-5 flex items-center justify-center text-small ml-auto'>  {user.incoming_request?.length}</span>} </li></Link>
         </ul>
       </div>
 
@@ -69,7 +69,7 @@ const Sidebar = () => {
                 />}</span>
                 <span>{friend.name}</span>
               </div>
-              <span className='bg-primary text-postitive rounded-full w-5 h-5 flex items-center justify-center text-xs ml-auto'>2</span>
+              {/* <span className='bg-primary text-postitive rounded-full w-5 h-5 flex items-center justify-center text-xs ml-auto'>2</span> */}
              
             </li>
       
