@@ -8,46 +8,45 @@ import axios from 'axios'
 import { Toaster, toast } from 'react-hot-toast'
 
 const IncomingRequest = ({ incoming_request }) => {
-
-    const router = useRouter()
-    const [friendRequests, setFriendRequests] = useState(
-        incoming_request
-    )
-    console.log(friendRequests)
-
-
-    const acceptFriend = async (senderId) => {
-        try {
-            await axios.post('/api/friend/request/accept', { id: senderId })
-            setFriendRequests((prev) =>
-                prev.filter((request) => request._id !== senderId)
-            )
-            toast.success("Friend Request Accepted !")
-        } catch (error) {
-            toast(error.response?.data?.message || 'An error occurred', { duration: 2000, icon: '☠️' });
-        } finally {
-            router.refresh()
-        }
-    }
+    // const router = useRouter()
+    // const [friendRequests, setFriendRequests] = useState(
+    //     incoming_request
+    // )
+    // console.log(friendRequests)
 
 
+    // const acceptFriend = async (senderId) => {
+    //     try {
+    //         await axios.post('/api/friend/request/accept', { id: senderId })
+    //         setFriendRequests((prev) =>
+    //             prev.filter((request) => request._id !== senderId)
+    //         )
+    //         toast.success("Friend Request Accepted !")
+    //     } catch (error) {
+    //         toast(error.response?.data?.message || 'An error occurred', { duration: 2000, icon: '☠️' });
+    //     } finally {
+    //         router.refresh()
+    //     }
+    // }
 
-    const denyFriend = async (senderId) => {
-        try {
-            await axios.post('/api/friend/request/deny', { id: senderId })
 
-            setFriendRequests((prev) =>
-                prev.filter((request) => request._id !== senderId)
-            )
-            toast.success("Friend Request Denied !")
-        } catch (error) {
-            toast(error.response?.data?.message || 'An error occurred', { duration: 2000, icon: '☠️' });
-        }
-        router.refresh()
-    }
+
+    // const denyFriend = async (senderId) => {
+    //     try {
+    //         await axios.post('/api/friend/request/deny', { id: senderId })
+
+    //         setFriendRequests((prev) =>
+    //             prev.filter((request) => request._id !== senderId)
+    //         )
+    //         toast.success("Friend Request Denied !")
+    //     } catch (error) {
+    //         toast(error.response?.data?.message || 'An error occurred', { duration: 2000, icon: '☠️' });
+    //     }
+    //     router.refresh()
+    // }
     return (
         <div>
-            <Toaster />
+            {/* <Toaster />
             {friendRequests?.length === 0 ? (
                 <p className='text-sm text-zinc-500'>No friend requests...</p>
             ) : (
@@ -67,7 +66,7 @@ const IncomingRequest = ({ incoming_request }) => {
                             </div>
                         </div>
 
-                        {/*  */}
+                
                         <div className='ml-auto flex gap-8 items-center'>
                             <div className='flex gap-8'>
                                 <div className='flex px-2 py-1 gap-2 items-center hover:bg-slate-200 '
@@ -83,11 +82,14 @@ const IncomingRequest = ({ incoming_request }) => {
                                     Decline
                                 </div>
                             </div>
-                            {/* <span className=' text-secondary flex items-center justify-center text-small w-full'>{req.createdAt}</span> */}
+                          
+                          
                         </div>
                     </div>
                 )))
-            }
+            } 
+        */}
+        <h1>No friend Requests..</h1>
         </div>
     )
 }
