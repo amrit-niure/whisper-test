@@ -16,19 +16,25 @@ const page = async () => {
     let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     today = today.toLocaleDateString("en-US", options);
   
-    if (!session || !session.user) {
+    if (!session || !session.user ) {
       console.error('Error: User not authenticated');
       return <div>Error: User not authenticated</div>;
+    }
+    if (!cookie) {
+      console.error('Error: No cookie found');
+      return <div>Error: No cookie found.</div>;
     }
 
     const apiUrl = `${process.env.NEXTAUTH_URL}/api/friend/${session.user.id}`;
     console.log("Logging API URL: ", apiUrl);
 
-    const response = await axios.get(apiUrl, {
-      headers: {
-        'Cookie': `${cookie.name}=${cookie.value}`
-      }
-    });
+
+  const response = await axios.get(apiUrl, {
+    headers: {
+      'Cookie': `${cookie.name}=${cookie.value}`
+    }
+  });
+
 
     const incoming_request = response.data.user.incoming_request;
     console.log("Incoming Request request/page.jsx", incoming_request);
