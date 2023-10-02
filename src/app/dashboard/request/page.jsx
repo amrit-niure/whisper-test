@@ -57,7 +57,7 @@ const page = async () => {
       </div>
 
       <div>
-        <IncomingRequest incoming_request={incoming_request} />
+      { incoming_request && <IncomingRequest incoming_request={incoming_request} />}
       </div>
     </div>
   )
