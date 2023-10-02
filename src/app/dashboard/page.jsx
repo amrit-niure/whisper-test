@@ -1,12 +1,14 @@
+"use client"
 import Image from 'next/image';
 import React from 'react';
 import { Sun } from '@/components/Icons';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { useSession } from 'next-auth/react';
 import { BiSolidQuoteLeft, BiSolidQuoteRight } from 'react-icons/bi';
+import AddFriend from '@/components/AddFriend';
 
-const Dashboard = async () => {
-  const session = await getServerSession(authOptions)
+
+const Dashboard =  () => {
+  const {data,status} = useSession()
   let today = new Date();
   let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   today = today.toLocaleDateString("en-US", options);
@@ -17,7 +19,7 @@ const Dashboard = async () => {
       <div className='flex items-center md:items-baseline justify-between'>
         <div className='flex items-center md:items-baseline gap-2'>
           <Sun />
-          <h1 className='text-big'>Good Morning, <b>{session.user.name.split(' ')[0]}</b></h1>
+          <h1 className='text-big'>Good Morning, <b>{data?.user.name.split(' ')[0]}</b></h1>
         </div>
         <div className='text-sm text-right'>
           {today}
@@ -28,18 +30,7 @@ const Dashboard = async () => {
       <div className='flex items-center gap-8 flex-col md:flex-row'>
         {/* left side */}
         <div className='flex flex-col gap-4 w-full md:w-1/3'>
-          <div className='flex flex-col' >
-            <h2 className="text-lg font-semibold mb-2">Add Friend</h2>
-            <input
-              type="text"
-              placeholder="Add friend by email"
-              className=" p-2 border border-gray-300 mb-2 outline-none"
-            />
-            <button className="bg-primary hover:bg-secondary text-white w-fit  py-2 px-4">
-              Add
-            </button>
-            {/* Add friend search and add functionality */}
-          </div>
+          <AddFriend />
           <div className='flex flex-col' >
             <h2 className="text-lg font-semibold mb-2">Create Group</h2>
             <input
@@ -58,7 +49,7 @@ const Dashboard = async () => {
 
         {/* right side */}
         <div className='flex flex-col gap-4'>
-          <div className="bg-primary hover:bg-secondary text-white w-fit  py-2 px-4">
+          <div className="bg-primary text-white w-fit  py-2 px-4">
             Quote of the day
           </div>
           <div className='border-primary border-l-4 flex flex-col  max-w-[700px] bg-white p-2'>
@@ -77,18 +68,18 @@ const Dashboard = async () => {
 
       </div>
       <div className='flex flex-col' >
-            <h2 className="text-lg font-semibold mb-2">Join Group</h2>
-            <input
-              type="text"
-              placeholder="Group Name"
-              className="p-2 border border-gray-300 mb-2 outline-none w-1/3"
-            />
-            <button className="bg-primary hover:bg-secondary text-white w-fit  py-2 px-4">
-              Join
-            </button>
-            {/* Add friend search and add functionality */}
-          </div>
- 
+        <h2 className="text-lg font-semibold mb-2">Join Group</h2>
+        <input
+          type="text"
+          placeholder="Group Name"
+          className="p-2 border border-gray-300 mb-2 outline-none w-1/3"
+        />
+        <button className="bg-primary hover:bg-secondary text-white w-fit  py-2 px-4">
+          Join
+        </button>
+        {/* Add friend search and add functionality */}
+      </div>
+
       {/* recent chats  */}
       <div className='pt-4'>
         <h2 className=" text-primary font-semibold">Recent Chats</h2>
@@ -116,3 +107,5 @@ const Dashboard = async () => {
 }
 
 export default Dashboard
+
+

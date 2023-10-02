@@ -1,5 +1,4 @@
 import Sidebar from '@/components/Sidebar'
-
 import React from 'react';
 import { Sun } from '@/components/Icons';
 import { getServerSession } from 'next-auth';
@@ -8,7 +7,6 @@ import { authOptions } from '@/lib/auth';
 
 const layout = async ({ children }) => {
     const session = await getServerSession(authOptions)
-    console.log(session)
     let today = new Date();
     let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     today = today.toLocaleDateString("en-US", options);

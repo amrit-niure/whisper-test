@@ -14,8 +14,8 @@ const Login = () => {
     }
   }
   return (
-    <div className='flex flex-col items-center md:gap-32 gap-16'>
-      <div className='flex md:flex-row flex-col items-center justify-center md:gap-20 gap-10 '>
+    <div className='flex flex-col items-center md:gap-32 gap-16 border-2 h-[100vh] justify-center'>
+      <div className='flex md:flex-row flex-col items-center justify-center  md:gap-20 gap-10 '>
         <Toaster />
         <Image
           src="/illustration.png"
@@ -59,15 +59,15 @@ const Login = () => {
 
       </div>
       <div className='border-primary border-l-4 flex flex-col w-[90vw] max-w-[700px] bg-light_bg p-2'>
-        <BiSolidQuoteLeft className='md:text-2xl text-primary'/>
+        <BiSolidQuoteLeft className='md:text-xl text-primary'/>
         <div className='px-4'>
 
         <h1 className='md:text-biggest  text-bigger font-semibold text-primary'>Early Internet Slang</h1>  
-        <p className='text-secondary md:text-big text-medium'>
+        <p className='text-secondary md:text-medium text-small'>
         The "@" symbol used in email addresses was chosen by computer engineer Ray Tomlinson for its scarcity in the English language, as it was unlikely to appear in names or text. It later became synonymous with email communication.
         </p>
         </div>
-        <BiSolidQuoteRight  className='self-end md:text-2xl  text-primary'/>
+        <BiSolidQuoteRight  className='self-end md:text-xl  text-primary'/>
       </div>
     </div>
   )
