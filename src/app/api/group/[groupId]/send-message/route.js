@@ -1,9 +1,7 @@
 import { authOptions } from "@/lib/auth"
 import connectionDB from "@/lib/db"
-import Chat from "@/modal/chatSchema"
 import Message from "@/modal/messageSchema"
 import Room from "@/modal/roomSchema"
-import User from "@/modal/userSchema"
 import { getServerSession } from "next-auth"
 import { NextResponse } from "next/server"
 
