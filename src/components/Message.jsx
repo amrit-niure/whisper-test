@@ -19,7 +19,7 @@ const Message = ({ initialMessages, sessionId,userImage, partnerImage}) => {
         return(<div>Loading...</div>)
     }
     return (
-        <div className='flex flex-grow flex-col gap-2 '>
+        <div className='text-sm flex flex-grow flex-col gap-2 '>
             <div ref={scrollDownRef} />
             {messages?.map((message, index) => {
                 const isCurrentUser = message.sender === sessionId
@@ -32,7 +32,7 @@ const Message = ({ initialMessages, sessionId,userImage, partnerImage}) => {
                             })}>
                             <div
                                 className={cn(
-                                    ' space-y-2 text-base max-w-xs mx-2',
+                                    ' space-y-2 text-sm max-w-xs mx-2',
                                     {
                                         'order-1 items-end': isCurrentUser,
                                         'order-2 items-start': !isCurrentUser,

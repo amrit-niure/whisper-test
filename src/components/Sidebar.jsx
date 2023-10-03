@@ -90,8 +90,8 @@ const Sidebar = () => {
         </ul>
       </div>
       <div className='pl-4 py-2 mt-auto relative'>
-        <h1 className='flex text-primary gap-2 cursor-pointer w-fit hover:text-blue-800 hover:underline' onClick={() => setShow(!show)}><Cog size={20} /> Settings</h1>
-        <p className='flex text-primary gap-2 pl-1  text-small '> <GitMerge size={15} />Version 1.0</p>
+        <h1 className='flex text-primary gap-2  cursor-pointer w-fit hover:text-blue-800 hover:underline' onClick={() => setShow(!show)}><Cog size={20} /> Settings</h1>
+        <p className='flex text-primary gap-2 pl-1  '> <GitMerge size={15} />Version 1.0</p>
         {show && <div className='absolute -top-14 right-10 w-3/5 rounded-lg bg-slate-200  py-2'>
           <p className='hover:bg-light_bg_chat cursor-pointer px-2 py-1 flex gap-2' onClick={() => signOut()}> <LogOut /> Log Out</p>
         </div>}

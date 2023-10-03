@@ -14,7 +14,7 @@ const CollapsibleSection = ({ title, items, icon, children }) => {
   };
 
   return (
-    <div>
+    <div className=''>
       <h2 onClick={toggleContent} className='cursor-pointer flex items-center gap-2 hover:bg-light_bg_chat py-1 px-2'>
         {icon} {/* Render icon for the top-level item */}
         {title}
@@ -52,7 +52,7 @@ const ChatDetailsBar = ({name, image,friendId}) => {
   }
 
   return (
-    <div className='w-full h-full py-8 px-2 flex flex-col gap-8'>
+    <div className=' text-sm w-full h-full py-8 px-2 flex flex-col gap-8'>
       <Toaster />
       <div className='flex flex-col gap-1 items-center justify-center w-full'>
         <Image
