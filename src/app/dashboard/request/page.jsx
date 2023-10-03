@@ -38,6 +38,7 @@ const page = async () => {
 
 
     const incoming_request = response.data.user.incoming_request;
+    const group_invitation = response.data.user.group_invitation;
     console.log("Incoming Request request/page.jsx", incoming_request);
 
     if (!incoming_request) {
@@ -50,7 +51,7 @@ const page = async () => {
       <div className='flex items-baseline justify-between'>
         <div className='flex items-baseline gap-2'>
           <Sun />
-          <h1 className='text-big'>Good Morning, <b></b></h1>
+          <h1 className='text-big'>Good Morning, <b>{session.user?.name.split(' ')[0]}</b> <b></b></h1>
         </div>
         <div className='text-sm'>
           {today}
@@ -59,11 +60,18 @@ const page = async () => {
       <div className='w-full h-[2px] bg-slate-300 bg-opacity-50'></div>
       {/* list box */}
       <div>
-        <h1 className='text-big font-semibold'>Incoming Requests</h1>
+        <h1 className='text-big font-semibold'>Incoming Friend Requests</h1>
       </div>
 
       <div>
        <IncomingRequest incoming_request={incoming_request} />
+      </div>
+      <div>
+        <h1 className='text-big font-semibold'>Incoming Group Requests</h1>
+      </div>
+
+      <div>
+       <IncomingRequest group_invitation={group_invitation} userId={session.user.id}/>
       </div>
     </div>
     );

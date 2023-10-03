@@ -41,7 +41,7 @@ const AddFriend = () => {
         handleSubmit
       }) => (
         <form onSubmit={handleSubmit} className='flex flex-col' >
-          <h2 className="text-lg font-semibold mb-2">Add Friend</h2>
+          <h2 className="font-semibold mb-2">Add Friend</h2>
           <input
             type="text"
             id='email'
@@ -50,7 +50,7 @@ const AddFriend = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             placeholder="Add friend by email"
-            className={`p-2 border-2 mb-2 outline-none ${touched.email && errors.email ? ' border-red-600' : ''}`}
+            className={`p-2 border mb-2 outline-none ${touched.email && errors.email ? ' border-red-600' : ''}`}
           />
           <button className="bg-primary hover:bg-secondary text-white w-fit  py-2 px-4" >
             Add

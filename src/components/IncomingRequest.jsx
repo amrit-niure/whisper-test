@@ -7,35 +7,45 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Toaster, toast } from 'react-hot-toast'
 
-const IncomingRequest = ({ incoming_request }) => {
+const IncomingRequest = ({ incoming_request,group_invitation,userId}) => {
     const router = useRouter()
-    const [friendRequests, setFriendRequests] = useState(
-        incoming_request
-    )
-    console.log("Friend Requests :",incoming_request)
+    const [requests, setRequests] = useState([])
+    useEffect(() => {
+        if (incoming_request) {
+            setRequests(incoming_request);
+        } else {
+            setRequests(group_invitation);
+        }
+    }, [incoming_request, group_invitation])
 
-
-    const acceptFriend = async (senderId) => {
+    const acceptFriend = async (senderId,groupId) => {
         try {
-            await axios.post('/api/friend/request/accept', { id: senderId })
-            setFriendRequests((prev) =>
+            if (incoming_request) {
+                await axios.post('/api/friend/request/accept', { id: senderId })
+            } else {
+                await axios.get(`/api/group/users/${senderId}/accept/${groupId}`)  
+            }
+            setRequests((prev) =>
                 prev.filter((request) => request._id !== senderId)
             )
-            toast.success("Friend Request Accepted !")
+           incoming_request ?(toast.success("Friend Request Accepted !")) : (toast.success("Group Request Accepted !"))
         } catch (error) {
             toast(error.response?.data?.message || 'An error occurred', { duration: 2000, icon: '☠️' });
+            console.log(error)
         } finally {
             router.refresh()
         }
     }
 
 
-
-    const denyFriend = async (senderId) => {
+    const denyFriend = async (senderId,groupId) => {
         try {
-            await axios.post('/api/friend/request/deny', { id: senderId })
-
-            setFriendRequests((prev) =>
+            if (incoming_request) {
+                await axios.post('/api/friend/request/deny', { id: senderId })
+            } else {
+                await axios.get(`/api/group/users/${senderId}/decline/${groupId}`)  
+            }
+            setRequests((prev) =>
                 prev.filter((request) => request._id !== senderId)
             )
             toast.success("Friend Request Denied !")
@@ -47,10 +57,10 @@ const IncomingRequest = ({ incoming_request }) => {
     return (
         <div>
             <Toaster />
-            {friendRequests?.length === 0 ? (
-                <p className='text-sm text-zinc-500'>No friend requests...</p>
+            {requests?.length === 0 ? (
+                <p className='text-sm text-zinc-500'>{incoming_request ? "No freind requests" : "No group requests"}</p>
             ) : (
-                friendRequests?.map((req) => (
+                requests?.map((req) => (
                     <div className='flex gap-4 py-4 bg-light_bg_chat px-4 cursor-pointer' key={req._id}>
                         <div className='flex gap-2 items-center'>
                             <Image
@@ -68,7 +78,7 @@ const IncomingRequest = ({ incoming_request }) => {
 
                 
                         <div className='ml-auto flex gap-8 items-center'>
-                            <div className='flex gap-8'>
+                           { incoming_request ? (<div className='flex gap-8'>
                                 <div className='flex px-2 py-1 gap-2 items-center hover:bg-slate-200 '
                                     onClick={() => acceptFriend(req._id)}
                                 >
@@ -81,7 +91,22 @@ const IncomingRequest = ({ incoming_request }) => {
                                     <X size={20} />
                                     Decline
                                 </div>
+                            </div>) :(
+                                <div className='flex gap-8'>
+                                <div className='flex px-2 py-1 gap-2 items-center hover:bg-slate-200 '
+                                    onClick={() => acceptFriend(userId,req._id)}
+                                >
+                                    <Check size={20} />
+                                    Accept
+                                </div>
+                                <div className='flex px-2 py-1 gap-2 items-center hover:bg-slate-200 '
+                                    onClick={() => denyFriend(userId,req._id)}
+                                >
+                                    <X size={20} />
+                                    Decline
+                                </div>
                             </div>
+                            )}
                           
                           
                         </div>

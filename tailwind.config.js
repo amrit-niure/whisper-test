@@ -21,7 +21,7 @@ module.exports = {
         biggest: ' 24px',
         bigger: ' 18px',
         big: '18px',
-        medium: '16px',
+        md: '16px',
         small: '14px',
         vsmall: "12px"
       } 

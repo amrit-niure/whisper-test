@@ -10,7 +10,7 @@ export async function GET(req,{params}){
     if (!session) return new Response('Unauthorized', { status: 401 })
     const { id } = params
     await connectionDB()
-    const user = await User.findById(id).populate("friends").populate("incoming_request").populate('groups')
+    const user = await User.findById(id).populate("friends").populate("incoming_request").populate('groups').populate("group_invitation")
     // const user = await User.findById(id)
     if (!user) return NextResponse.json({ message: 'NO user exists.' }, { status: 404 })
     // const friends = await User.find({ _id: { $in: user.friends } })

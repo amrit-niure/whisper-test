@@ -36,7 +36,7 @@ const Sidebar = () => {
     return (<div> Loading...</div>)
   }
   return (
-    <div className="md:flex w-full bg-light_bg h-full rounded-l-lg  flex-col gap-2 border-r-2">
+    <div className="md:flex w-full bg-light_bg h-full rounded-l-lg text-sm   flex-col gap-2 border-r-2">
       {<Profile name={data.user.name} email={data?.user.email} image={data.user.image} />}
       <div >
         <h2 className=" text-primary font-semibold mb-2 px-4">Dashboard</h2>

@@ -4,7 +4,7 @@ import { format, parseISO } from 'date-fns'
 import Image from 'next/image'
 import React, { useEffect, useRef, useState } from 'react'
 
-const Message = ({ initialMessages, sessionId}) => {
+const Message = ({ initialMessages, sessionId,userImage, partnerImage}) => {
 
     const [messages, setMessages] = useState(initialMessages)
 
@@ -19,7 +19,7 @@ const Message = ({ initialMessages, sessionId}) => {
         return(<div>Loading...</div>)
     }
     return (
-        <div className='flex flex-col gap-2'>
+        <div className='flex flex-grow flex-col gap-2 '>
             <div ref={scrollDownRef} />
             {messages?.map((message, index) => {
                 const isCurrentUser = message.sender === sessionId
@@ -64,7 +64,7 @@ const Message = ({ initialMessages, sessionId}) => {
                                 <Image
                                     fill
                                     src={
-                                        isCurrentUser ? '/avatar.jpg' : '/avatar2.jpg'
+                                        isCurrentUser ? userImage : partnerImage
                                     }
                                     alt='Profile picture'
                                     referrerPolicy='no-referrer'
@@ -82,3 +82,35 @@ const Message = ({ initialMessages, sessionId}) => {
 }
 
 export default Message
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
