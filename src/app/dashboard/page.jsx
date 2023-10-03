@@ -12,10 +12,6 @@ import toast from 'react-hot-toast';
 
 const Dashboard = () => {
   const [create, setCreate] = useState('')
-  const [invite, setInvite] = useState({
-    group: '',
-    friend: ''
-  })
   const { data, status } = useSession()
   let today = new Date();
   let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -24,8 +20,26 @@ const Dashboard = () => {
 
   const createGroup = async () => {
     if (!create) return
-    alert("Group Created Succesfully.")
-    setCreate('')
+    try {
+      const response = await fetch('/api/group/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(create),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        toast.success(data.message); // Handle the success response
+      } else {
+        const errorData = await response.json();
+        toast.error(errorData.message);
+      }
+
+      formik.resetForm();
+    } catch (error) {
+      toast.error(error);
+    }
   }
 
   const formik = useFormik({
