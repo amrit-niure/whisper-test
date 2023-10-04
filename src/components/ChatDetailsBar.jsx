@@ -7,6 +7,7 @@ import { Search, UserMinus, Users } from 'lucide-react';
 import { useRouter } from 'next/navigation'
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
+import { useSession } from 'next-auth/react';
 const CollapsibleSection = ({ title, items, icon, children }) => {
   const [isContentVisible, setIsContentVisible] = useState(false);
   const toggleContent = () => {
@@ -37,12 +38,25 @@ const ChatDetailsBar = ({name, image,friendId,groupData}) => {
   const router = useRouter()
   const [showUnfriend, setShowUnfriend] = useState(false);
   const namesList = groupData?.members.map(member => member.name);
+const session = useSession()
   const removeFriend = async (friendId) => {
     try {
       console.log(friendId)
       await axios.post('/api/friend/unfriend', { id: friendId })
       router.push('/dashboard')
       toast.success("Succesfully Unfriended !")
+    } catch (error) {
+      toast(error.response?.data?.message || 'An error occurred', { duration: 2000, icon: '☠️' });
+      console.log(error)
+    } finally {
+      router.refresh()
+    }
+  }
+  const leaveGroup = async (groupId) => {
+    try {
+      await axios.post('/api/group/leave', { groupId: groupId, userId :session.user.id  })
+      router.push('/dashboard')
+      toast.success("Succesfully Left the group !")
     } catch (error) {
       toast(error.response?.data?.message || 'An error occurred', { duration: 2000, icon: '☠️' });
       console.log(error)
@@ -97,13 +111,13 @@ const ChatDetailsBar = ({name, image,friendId,groupData}) => {
       </>}
 {showUnfriend && (<div className='flex flex-col px-10'> 
   {<p className='text-small'>Are you sure you want to {name ? "Unfriend" : "Leave"} {name? name : groupData.name}?</p>}
-  <div className='flex  text-small self-end'>
+  <div className='flex text-small self-end'>
     {name && <button className='bg-primary text-white px-2 py-2 ' onClick={() => { 
       removeFriend(friendId)
       setShowUnfriend(!showUnfriend)}
       }>Yes</button>}
     {groupData && <button className='bg-primary text-white px-2 py-2 ' onClick={() => { 
-      removeFriend(friendId)
+     leaveGroup(groupData._id)
       setShowUnfriend(!showUnfriend)}
       }>Yes</button>}
     <button className='bg-slate-200 text-slate-400 px-2 py-2 ' onClick={() => setShowUnfriend(!showUnfriend)}>No</button>

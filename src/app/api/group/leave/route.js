@@ -6,10 +6,11 @@ import User from "@/modal/userSchema"
 import { getServerSession } from "next-auth"
 import { NextResponse } from "next/server"
 
-export async function GET(req, { params }) {
+export async function POST(req) {
     const session = await getServerSession(authOptions)
     if (!session) return new Response('Unauthorized', { status: 401 })
-    const { userId, groupId } = params;
+    const {userId,groupId} = await req.json();
+    console.log(userId,groupId)
     try {
         await connectionDB()
         const room = await Room.findById(groupId);
@@ -40,15 +41,15 @@ export async function GET(req, { params }) {
         );
 
         // Save both the user and the room
-        await user.save();
-        await room.save();
+       const updateUser =  await user.save();
+       const updateGroup =  await room.save();
 
 
         // // Use $pull to remove the group from pending groups array of user 
         // await User.findByIdAndUpdate(userId, {
         //     $pull: { groups: groupId },
         // });
-        return NextResponse.json({ message: "Group Leaved successfully" }, { status: 200 })
+        return NextResponse.json({ message: "Group Leaved successfully" ,user:updateUser, group: updateGroup}, { status: 200 })
     } catch (error) {
         console.error("Error sending invitation:", error);
         return NextResponse.json({ message: "Internal Server Error" }, { status: 500 })
