@@ -13,12 +13,16 @@ export async function POST(req) {
 
     try {
         await connectionDB()
-        const room = await Room.findOne({ name: group });
+        const rooms = await Room.find({ name: group });
         const user = await User.findOne({ email: friend });
-
-        if (!room || !user) {
+        
+        if (rooms.length === 0 || !user) {
             return NextResponse.json({ message: "Room or user not found" }, { status: 404 });
         }
+
+        // filter the exact room where the session user is the member from rooms list
+        const room = rooms.filter((room) => room.members.some((id) => id.toString() === session.user.id))[0];
+        console.log("Room :",room)
         // check if the user is sending the group invitation to himself
         if (user.email === session.user.email) {
             return NextResponse.json({ message: "You cannot send invitation to yourself" }, { status: 400 });

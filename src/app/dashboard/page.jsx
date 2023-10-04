@@ -31,12 +31,11 @@ const Dashboard = () => {
       if (response.ok) {
         const data = await response.json();
         toast.success(data.message); // Handle the success response
+        setCreate('')
       } else {
         const errorData = await response.json();
         toast.error(errorData.message);
       }
-
-      formik.resetForm();
     } catch (error) {
       toast.error(error);
     }

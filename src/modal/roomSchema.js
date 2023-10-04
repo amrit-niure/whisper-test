@@ -5,6 +5,10 @@ const roomSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'   
+  },
   members: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'         

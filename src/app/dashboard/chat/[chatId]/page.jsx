@@ -85,7 +85,7 @@ const page = async ({ params }) => {
         </div>
 
         {/* Middle Section (Flex-1 to take up remaining space) */}
-        <div className='  overflow-y-scroll flex-1'>
+        <div className='  overflow-y-scroll flex-1 scrollbar'>
           <Message sessionId={session.user.id} initialMessages={initialMessages} userImage={session.user.image} partnerImage={chatPartner.image}  />
         </div>
 
