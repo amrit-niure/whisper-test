@@ -56,29 +56,29 @@ const Sidebar = () => {
           <div className='flex flex-col gap-2'>
             <Skeleton height={'20px'} width={'100px'} />
             <div className='px-4 flex flex-col gap-2'>
-              <Skeleton height={'20px'} width={'100%'} />
-              <Skeleton height={'20px'} width={'100%'} />
+              <Skeleton height={'24px'} width={'70%'} />
+              <Skeleton height={'24px'} width={'70%'} />
             </div>
           </div>
           <div className='flex flex-col gap-2 py-4'>
             <Skeleton height={'20px'} width={'100px'} />
             <div className='px-4 flex flex-col gap-2'>
-              <Skeleton height={'20px'} width={'100%'} />
-              <Skeleton height={'20px'} width={'100%'} />
+              <Skeleton height={'24px'} width={'70%'} />
+              <Skeleton height={'24px'} width={'70%'} />
             </div>
           </div>
           <div className='flex flex-col gap-2 py-4'>
             <Skeleton height={'20px'} width={'100px'} />
             <div className='px-4 flex flex-col gap-2'>
-              <Skeleton height={'20px'} width={'100%'} />
-              <Skeleton height={'20px'} width={'100%'} />
+              <Skeleton height={'24px'} width={'70%'} />
+              <Skeleton height={'24px'} width={'70%'} />
             </div>
           </div>
         </div>
     
         <div className='px-4 flex flex-col gap-2'>
-          <Skeleton height={'20px'} width={'50%'} />
-          <Skeleton height={'20px'} width={'50%'} />
+          <Skeleton height={'24px'} width={'50%'} />
+          <Skeleton height={'24px'} width={'50%'} />
         </div>
 
       </SkeletonTheme>
