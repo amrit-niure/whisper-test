@@ -7,8 +7,8 @@ import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import axios from 'axios';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+
+import SidebarLoading from './Loading/SidebarLoading';
 
 const Sidebar = () => {
   const { data, status } = useSession()
@@ -39,56 +39,9 @@ const Sidebar = () => {
 
 
 
-
-
   if (loading) {
-    return (<div className='px-4 py-6 max-h-[100vh] w-full flex flex-col'>
-      <SkeletonTheme baseColor='#EAEAEA' highlightColor="#F5F6F6">
-        <div className='flex-1'>
-          <div className=' flex gap-2 items-center'>
-            <Skeleton height={'60px'} width={'60px'} borderRadius={'50%'} />
-            <div>
-              <Skeleton height={'20px'} width={'100px'} />
-              <Skeleton height={'10px'} width={'200px'} />
-            </div>
-          </div>
-          <Skeleton height={'1px'} width={'100%'} />
-          <div className='flex flex-col gap-2'>
-            <Skeleton height={'20px'} width={'100px'} />
-            <div className='px-4 flex flex-col gap-2'>
-              <Skeleton height={'24px'} width={'70%'} />
-              <Skeleton height={'24px'} width={'70%'} />
-            </div>
-          </div>
-          <div className='flex flex-col gap-2 py-4'>
-            <Skeleton height={'20px'} width={'100px'} />
-            <div className='px-4 flex flex-col gap-2'>
-              <Skeleton height={'24px'} width={'70%'} />
-              <Skeleton height={'24px'} width={'70%'} />
-            </div>
-          </div>
-          <div className='flex flex-col gap-2 py-4'>
-            <Skeleton height={'20px'} width={'100px'} />
-            <div className='px-4 flex flex-col gap-2'>
-              <Skeleton height={'24px'} width={'70%'} />
-              <Skeleton height={'24px'} width={'70%'} />
-            </div>
-          </div>
-        </div>
-    
-        <div className='px-4 flex flex-col gap-2'>
-          <Skeleton height={'24px'} width={'50%'} />
-          <Skeleton height={'24px'} width={'50%'} />
-        </div>
-
-      </SkeletonTheme>
-    </div>)
+    return (<SidebarLoading />)
   }
-
-
-
-
-
 
   return (
     <div className="md:flex w-full bg-light_bg h-full  text-sm   flex-col gap-2 border-r-2">
@@ -136,12 +89,13 @@ const Sidebar = () => {
           </div>
           <ul>
             {user.groups?.map((group) => (
+              <Link href={`/dashboard/groupchat/${group._id}`} key={group._id}>
               <li
-                key={group._id}
                 className=" pl-6 py-2 flex gap-2 hover:bg-light_bg_chat cursor-pointer"
               >
                 <span>{group.name}</span>
               </li>
+              </Link>
             ))}
           </ul>
         </div>

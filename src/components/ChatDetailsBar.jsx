@@ -3,7 +3,7 @@ import { IoNotificationsSharp } from 'react-icons/io5';
 import Image from 'next/image';
 import { BsImages, BsFileEarmarkText, BsLink45Deg } from 'react-icons/bs';
 import React, { useState } from 'react';
-import { Search, UserMinus } from 'lucide-react';
+import { Search, UserMinus, Users } from 'lucide-react';
 import { useRouter } from 'next/navigation'
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
@@ -15,7 +15,7 @@ const CollapsibleSection = ({ title, items, icon, children }) => {
 
   return (
     <div className=''>
-      <h2 onClick={toggleContent} className='cursor-pointer flex items-center gap-2 hover:bg-light_bg_chat py-1 px-2'>
+      <h2 onClick={toggleContent} className='cursor-pointer flex items-center gap-2 hover:bg-light_bg_chat py-2 px-2'>
         {icon} {/* Render icon for the top-level item */}
         {title}
       </h2>
@@ -23,7 +23,7 @@ const CollapsibleSection = ({ title, items, icon, children }) => {
         <div>
           <ul>
             {items.map((item, index) => (
-              <li key={index} className='hover:bg-light_bg_chat py-1 px-2'>{item}</li>
+              <li key={index} className='hover:bg-light_bg_chat py-2 px-10'>{item}</li>
             ))}
           </ul>
           {children} {/* Render nested collapsible sections */}
@@ -33,10 +33,10 @@ const CollapsibleSection = ({ title, items, icon, children }) => {
   );
 };
 
-const ChatDetailsBar = ({name, image,friendId}) => {
+const ChatDetailsBar = ({name, image,friendId,groupData}) => {
   const router = useRouter()
   const [showUnfriend, setShowUnfriend] = useState(false);
-
+  const namesList = groupData?.members.map(member => member.name);
   const removeFriend = async (friendId) => {
     try {
       console.log(friendId)
@@ -66,8 +66,8 @@ const ChatDetailsBar = ({name, image,friendId}) => {
         <p className='text-small'>Active Now</p>
         <IoNotificationsSharp className='text-xl' />
       </div>
-      <div className='flex flex-col gap-2'>
-      <h2 className='flex gap-2 items-center hover:bg-light_bg_chat py-1 px-2'><Search size={20}/> Search in Conversation</h2>
+      <div className='flex flex-col '>
+      <h2 className='flex gap-2 items-center hover:bg-light_bg_chat py-2 px-2'><Search size={20}/> Search in Conversation</h2>
       {/* Nested CollapsibleSection for Media */}
       <CollapsibleSection
         title="Media Files and Links"
@@ -85,15 +85,28 @@ const ChatDetailsBar = ({name, image,friendId}) => {
         {/* Nested CollapsibleSection for Links */}
         <CollapsibleSection title="Links" items={['Link 1', 'Link 2', 'Link 3']}    icon={<BsImages />}/>
       </CollapsibleSection>
-      <h2 className='flex gap-2 items-center hover:bg-light_bg_chat py-1 px-2 cursor-pointer' onClick={() => setShowUnfriend(!showUnfriend)}> <UserMinus size={20} />Unfriend</h2>
+     {name && <h2 className='flex items-center hover:bg-light_bg_chat py-2 px-2 cursor-pointer' onClick={() => setShowUnfriend(!showUnfriend)}> <UserMinus size={20} />Unfriend</h2>}
+      {groupData && <>
+        <CollapsibleSection
+       title="Group Members"
+       items={namesList}
+       icon={<Users size={20} />}
+    
+      />
+        <h2 className='flex gap-2 items-center hover:bg-light_bg_chat py-2 px-2 cursor-pointer' onClick={() => setShowUnfriend(!showUnfriend)}> <UserMinus size={20} />Leave Group </h2>
+      </>}
 {showUnfriend && (<div className='flex flex-col px-10'> 
-  <p className='text-small'>Are you sure you want to unfriend {name}?</p>
-  <div className='flex gap-2 text-small self-end'>
-    <button className='bg-primary text-white px-2 py-1 ' onClick={() => { 
+  {<p className='text-small'>Are you sure you want to {name ? "Unfriend" : "Leave"} {name? name : groupData.name}?</p>}
+  <div className='flex  text-small self-end'>
+    {name && <button className='bg-primary text-white px-2 py-2 ' onClick={() => { 
       removeFriend(friendId)
       setShowUnfriend(!showUnfriend)}
-      }>Yes</button>
-    <button className='bg-slate-200 text-slate-400 px-2 py-1 ' onClick={() => setShowUnfriend(!showUnfriend)}>No</button>
+      }>Yes</button>}
+    {groupData && <button className='bg-primary text-white px-2 py-2 ' onClick={() => { 
+      removeFriend(friendId)
+      setShowUnfriend(!showUnfriend)}
+      }>Yes</button>}
+    <button className='bg-slate-200 text-slate-400 px-2 py-2 ' onClick={() => setShowUnfriend(!showUnfriend)}>No</button>
   </div>
 </div>)}
       </div>
