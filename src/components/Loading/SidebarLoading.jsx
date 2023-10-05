@@ -3,7 +3,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 const SidebarLoading = () => {
   return (
-    <div className='px-4 py-6 max-h-[100vh] w-full flex flex-col'>
+    <div className='px-4 py-6 max-h-[100vh] bg-light_bg w-full flex flex-col'>
     <SkeletonTheme baseColor='#e2e8f0' highlightColor="#F5F6F6">
       <div className='flex-1'>
         <div className=' flex gap-2 items-center'>

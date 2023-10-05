@@ -48,6 +48,7 @@ const page = async () => {
     return (
       <div className='px-8 py-8 flex flex-col gap-3 bg-light_bg h-full'>
       {/* Good Morning Header */}
+      
       <div className='flex items-baseline justify-between'>
         <div className='flex items-baseline gap-2'>
           <Sun />

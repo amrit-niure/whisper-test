@@ -12,7 +12,7 @@ const layout = async ({ children }) => {
     today = today.toLocaleDateString("en-US", options);
     return (
         <div className='w-full   min-h-[100vh] md:h-[100vh] '>
-            <div className='flex min-h-[100vh] md:h-[100vh] w-100'>
+            <div className='flex w-100 min-h-screen'>
                 <div className='hidden md:flex w-1/5 '>
                     <Sidebar />
                 </div>
