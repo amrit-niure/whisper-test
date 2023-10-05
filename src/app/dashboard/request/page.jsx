@@ -1,10 +1,11 @@
 import { authOptions } from '@/lib/auth'
-import { Sun } from '@/components/Icons';
+
 import { getServerSession } from 'next-auth'
 import React from 'react'
 import axios from 'axios'
 import { cookies } from 'next/headers'
 import IncomingRequest from '@/components/IncomingRequest';
+import Header from '@/components/Header';
 
 
 const page = async () => {
@@ -47,18 +48,6 @@ const page = async () => {
 
     return (
       <div className='px-8 py-8 flex flex-col gap-3 bg-light_bg h-full'>
-      {/* Good Morning Header */}
-      
-      <div className='flex items-baseline justify-between'>
-        <div className='flex items-baseline gap-2'>
-          <Sun />
-          <h1 className='text-big'>Good Morning, <b>{session.user?.name.split(' ')[0]}</b> <b></b></h1>
-        </div>
-        <div className='text-sm'>
-          {today}
-        </div>
-      </div>
-      <div className='w-full h-[2px] bg-slate-300 bg-opacity-50'></div>
       {/* list box */}
       <div>
         <h1 className='text-big font-semibold'>Incoming Friend Requests</h1>

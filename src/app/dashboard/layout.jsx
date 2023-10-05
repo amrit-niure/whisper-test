@@ -3,6 +3,7 @@ import React from 'react';
 import { Sun } from '@/components/Icons';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import Header from '@/components/Header';
 
 
 const layout = async ({ children }) => {
@@ -16,7 +17,8 @@ const layout = async ({ children }) => {
                 <div className='hidden md:flex w-1/5 '>
                     <Sidebar />
                 </div>
-                <div className='w-full md:w-4/5  bg-light_bg '>
+                <div className='w-full md:w-4/5   px-8 py-4 flex flex-col gap-3 bg-light_bg '>
+                    <Header />
                     {children}
                 </div>
             </div>

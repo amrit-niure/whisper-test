@@ -79,28 +79,12 @@ const Dashboard = () => {
 
   return (
 
-    <div className='px-8 py-8 flex flex-col text-sm gap-3 bg-light_bg h-full relative'>
-      {showSidebar && <div className='absolute left-0 top-0 z-50 h-full'> <div 
-      onClick={() => setShowSidebar(false)} 
-      className='absolute -right-14 top-10 cursor-pointer bg-primary text-light_bg px-2 py-1'
-      >
-        Close
-        </div> <Sidebar /></div>}
+    <div className=' flex flex-col text-sm gap-3 bg-light_bg h-full relative'>
+   
       {/* Good Morning Header */}
-      <div className='flex items-center md:items-baseline justify-between'>
-        <div className='flex items-center md:hidden gap-2' onClick={() => setShowSidebar(true)}>
-        <AlignRight />
-        </div>
-        <div className='flex items-center md:items-baseline gap-2'>
-          <Sun />
-          <h1 className='text-big'>Good Morning, <b>{data?.user.name.split(' ')[0]}</b></h1>
-        </div>
-        <div className='text-sm text-right'>
-          {today}
-        </div>
-      </div>
+      
       {/* recent chats  */}
-        <div className='w-full h-[2px] bg-slate-300 bg-opacity-50'></div>
+
       <div className='flex flex-col-reverse md:flex-col'>
 
         <div className=' flex flex-col'>
