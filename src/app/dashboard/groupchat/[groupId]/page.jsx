@@ -52,7 +52,6 @@ const initialMessages=groupData.messages;
     // Concatenate the names and additional members text
     displayText = firstTwoNames.join(', ') + additionalMembersText;
   }
-
   return (
     <div className='flex'>
       <div className='px-8 flex flex-col max-h-[100vh] min-h-[100vh]  bg-light_bg h-full w-full md:w-3/4 border-r-2'>
@@ -72,12 +71,12 @@ const initialMessages=groupData.messages;
 
         {/* Middle Section (Flex-1 to take up remaining space) */}
         <div className='  overflow-y-scroll flex-1 scrollbar'>
-          <Message sessionId={session.user.id} initialMessages={initialMessages} userImage={'/avatar2.jpg'} partnerImage={'/avatar.jpg'}  />
+          <Message sessionId={session.user.id} initialMessages={initialMessages} userImage={session.user.image} />
         </div>
 
         {/* Bottom Section */}
         <div className='py-4 h-1/4'>
-          <ChatInput chatId={'3424'} recipientId={'45353'} />
+          <ChatInput groupId={groupId} senderId={session.user.id} />
         </div>
 
       </div>

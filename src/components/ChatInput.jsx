@@ -6,7 +6,7 @@ import ReactTextareaAutosize from 'react-textarea-autosize';
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-const ChatInput = ({chatId, recipientId}) => {
+const ChatInput = ({chatId, recipientId ,groupId,senderId}) => {
   const textareaRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false)
   const [input, setInput] = useState("");
@@ -14,8 +14,12 @@ const ChatInput = ({chatId, recipientId}) => {
     setIsLoading(true)
     try {
       if(!input) return
-        // await new Promise((resolve) => setTimeout(resolve ,1000))
+      if(chatId){
         await axios.post(`/api/send/messages/${chatId}`,{text:input , recipientId: recipientId })
+      }
+      else{
+        await axios.post(`/api/group/${groupId}/send-message`,{text:input , sender: senderId })
+      }
         setInput('')
         textareaRef.current?.focus()
     } catch (error) {

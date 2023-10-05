@@ -23,7 +23,7 @@ const Message = ({ initialMessages, sessionId,userImage, partnerImage}) => {
         <div className='text-sm flex flex-grow flex-col gap-2 '>
             <div ref={scrollDownRef} />
             {messages?.map((message, index) => {
-                const isCurrentUser = message.sender === sessionId
+                const isCurrentUser = partnerImage ? message.sender === sessionId : message.sender._id === sessionId
                 const hasNextMessageFromSameUser = messages[index + 1]?.sender === messages[index].sender
                 return (
                     <div key={`${message._id}-${message.createdAt}`} className=''>
@@ -65,7 +65,7 @@ const Message = ({ initialMessages, sessionId,userImage, partnerImage}) => {
                                 <Image
                                     fill
                                     src={
-                                        isCurrentUser ? userImage : partnerImage
+                                        isCurrentUser ? userImage : partnerImage || message.sender.image
                                     }
                                     alt='Profile picture'
                                     referrerPolicy='no-referrer'

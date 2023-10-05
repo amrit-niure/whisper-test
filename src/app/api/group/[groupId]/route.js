@@ -14,7 +14,13 @@ export async function GET(req, { params }) {
     await connectionDB()
 
     // Find the room  
-    const room = await Room.findById(groupId).populate('members').populate('messages')
+    const room = await Room.findById(groupId)
+        .populate('members')
+        .populate({
+            path: 'messages',
+            populate: { path: 'sender' },
+        });
+    console.log(room)
     if (!room) {
         return NextResponse.json({ message: 'There is no room of this id' }, { status: 404 })
     }
@@ -22,6 +28,9 @@ export async function GET(req, { params }) {
     const isMember = room.members.some((member) => member._id.toString() === session.user.id)
     if (!isMember) return NextResponse.json({ message: 'You are not the member of this group.' }, { status: 401 })
 
-    return NextResponse.json({group: room}, { status: 200 })
+    return NextResponse.json({ group: room }, { status: 200 })
 
 }
+
+
+
