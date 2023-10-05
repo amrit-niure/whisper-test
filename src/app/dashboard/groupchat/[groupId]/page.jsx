@@ -18,8 +18,6 @@ const page = async ({ params }) => {
   const cookie = cookieStore.get(process.env.COOKIE_NAME)
   const session = await getServerSession(authOptions);
   if (!session) notFound();
-  const { user } = session;
-
   async function fetchGroup(groupId, cookie) {
     let response;
     let result;
@@ -35,29 +33,25 @@ const page = async ({ params }) => {
     } catch (error) {
       console.error(error);
     }
-
     return result;
   }
   const groupData = await fetchGroup(groupId, cookie);
-  console.log(groupData)
-  // const initialMessages = await fetchMessages(chatId, cookie);
 
+const initialMessages=groupData.messages;
 
   // Extract names of the first two members
+  const firstTwoNames = groupData.members.slice(0, 2).map(member => member.name);
+  let displayText;
 
-    const firstTwoNames = groupData.members.slice(0, 2).map(member => member.name);
-    let displayText;
-    if (groupData.members.length === 2) {
-      displayText = firstTwoNames.join(' and ');
-    } else {
-      // Check if there are additional members
-      const remainingMembersCount = groupData.members.length - 2;
-      const additionalMembersText = remainingMembersCount > 0 ? ` and ${remainingMembersCount} others` : '';
-      // Concatenate the names and additional members text
-      displayText = firstTwoNames.join(', ') + additionalMembersText;
-    }
-
-
+  if (groupData.members.length === 2) {
+    displayText = firstTwoNames.join(' and ');
+  } else {
+    // Check if there are additional members
+    const remainingMembersCount = groupData.members.length - 2;
+    const additionalMembersText = remainingMembersCount > 0 ? ` and ${remainingMembersCount} others` : '';
+    // Concatenate the names and additional members text
+    displayText = firstTwoNames.join(', ') + additionalMembersText;
+  }
 
   return (
     <div className='flex'>
@@ -78,7 +72,7 @@ const page = async ({ params }) => {
 
         {/* Middle Section (Flex-1 to take up remaining space) */}
         <div className='  overflow-y-scroll flex-1 scrollbar'>
-          {/* <Message sessionId={session.user.id} initialMessages={initialMessages} userImage={session.user.image} partnerImage={chatPartner.image}  /> */}
+          <Message sessionId={session.user.id} initialMessages={initialMessages} userImage={'/avatar2.jpg'} partnerImage={'/avatar.jpg'}  />
         </div>
 
         {/* Bottom Section */}

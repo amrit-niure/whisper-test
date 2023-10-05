@@ -15,6 +15,7 @@ const Message = ({ initialMessages, sessionId,userImage, partnerImage}) => {
         }
         return format(parseISO(timestamp), 'HH:mm')
     }
+    console.log(initialMessages)
     if(!initialMessages){
         return(<div>Loading...</div>)
     }

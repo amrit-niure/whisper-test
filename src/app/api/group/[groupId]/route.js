@@ -1,6 +1,7 @@
 import { authOptions } from "@/lib/auth"
 import connectionDB from "@/lib/db"
 import User from "@/modal/userSchema"
+import Message from "@/modal/messageSchema"
 import Room from "@/modal/roomSchema"
 import { getServerSession } from "next-auth"
 import { NextResponse } from "next/server"
@@ -13,7 +14,7 @@ export async function GET(req, { params }) {
     await connectionDB()
 
     // Find the room  
-    const room = await Room.findById(groupId).populate('members')
+    const room = await Room.findById(groupId).populate('members').populate('messages')
     if (!room) {
         return NextResponse.json({ message: 'There is no room of this id' }, { status: 404 })
     }

@@ -15,14 +15,22 @@ export async function POST(req) {
         await connectionDB()
         const rooms = await Room.find({ name: group });
         const user = await User.findOne({ email: friend });
-        
+
         if (rooms.length === 0 || !user) {
             return NextResponse.json({ message: "Room or user not found" }, { status: 404 });
         }
-
+        // check if the user is friend with the user whom he is inviting to join
+        const isFriend = user.friends.includes(session.user.id);
+        if (!isFriend) {
+            return NextResponse.json({ message: `You are not friend with ${user.name}` }, { status: 400 })
+        }
         // filter the exact room where the session user is the member from rooms list
         const room = rooms.filter((room) => room.members.some((id) => id.toString() === session.user.id))[0];
-        console.log("Room :",room)
+
+        // check if the user is already a member of the room
+        const alreadyMember = room.members.some((id) => id.toString() === user._id.toString());
+        if (alreadyMember) return NextResponse.json({ message:`${user.name} is already the member of this Group` }, { status: 401 })
+
         // check if the user is sending the group invitation to himself
         if (user.email === session.user.email) {
             return NextResponse.json({ message: "You cannot send invitation to yourself" }, { status: 400 });

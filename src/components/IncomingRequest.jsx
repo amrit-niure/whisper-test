@@ -41,14 +41,16 @@ const IncomingRequest = ({ incoming_request,group_invitation,userId}) => {
     const denyFriend = async (senderId,groupId) => {
         try {
             if (incoming_request) {
-                await axios.post('/api/friend/request/deny', { id: senderId })
+                const response = await axios.post('/api/friend/request/deny', { id: senderId })
+                toast.success(response.data.message)
             } else {
-                await axios.get(`/api/group/users/${senderId}/decline/${groupId}`)  
+                const response =  await axios.get(`/api/group/users/${senderId}/decline/${groupId}`)  
+                toast.success(response.data.message)
             }
             setRequests((prev) =>
                 prev.filter((request) => request._id !== senderId)
             )
-            toast.success("Friend Request Denied !")
+           
         } catch (error) {
             toast(error.response?.data?.message || 'An error occurred', { duration: 2000, icon: '☠️' });
         }
