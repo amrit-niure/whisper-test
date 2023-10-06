@@ -11,6 +11,7 @@ import { authOptions } from '@/lib/auth'
 import axios from 'axios'
 import { cookies } from 'next/headers'
 import Message from '@/components/Message'
+import Header from '@/components/Header'
 
 const page = async ({ params }) => {
   const { chatId } = params
@@ -69,16 +70,15 @@ const page = async ({ params }) => {
   if (!areFriend) return notFound();
   return (
     <div className='flex'>
-      <div className='px-8 flex flex-col max-h-[100vh] min-h-[100vh]  bg-light_bg h-full w-full md:w-3/4 border-r-2'>
-
+      <div className='px- md:px-8 flex flex-col max-h-[100vh] min-h-[100vh]  bg-light_bg h-full w-full md:w-3/4 border-r-2'>
         {/* Top Section */}
-        <div className='flex flex-col gap-4 h-1/4'>
+        <div className='flex flex-col gap-2 md:gap-4 h-1/4 '>
           <div className='flex'>
             <Profile name={chatPartner.name} email={chatPartner.email} image={chatPartner.image} line={false} />
-            <div className='mt-8 ml-auto flex gap-6 items-center justify-center text-primary'>
-              <BsFillTelephoneFill className='text-2xl' />
-              <BiSolidVideo className='text-3xl' />
-              <BsInfoCircleFill className='text-2xl' />
+            <div className='mt-4 md:mt-8 ml-auto flex gap-6 items-center justify-center text-primary px-2'>
+              <BsFillTelephoneFill className='text-xl md:text-2xl' />
+              <BiSolidVideo className='text-2xl md:text-3xl' />
+              <BsInfoCircleFill className='text-xl md:text-2xl' />
             </div>
           </div>
           <div className='h-[2px] bg-slate-300 bg-opacity-50'></div>
@@ -90,7 +90,7 @@ const page = async ({ params }) => {
         </div>
 
         {/* Bottom Section */}
-        <div className='py-4 h-1/4'>
+        <div className='py-4 h-1/4 px-4 md:px-0'>
           <ChatInput chatId={chatId} recipientId={chatPartnerId} />
         </div>
 

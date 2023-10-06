@@ -54,16 +54,15 @@ const initialMessages=groupData.messages;
   }
   return (
     <div className='flex'>
-      <div className='px-8 flex flex-col max-h-[100vh] min-h-[100vh]  bg-light_bg h-full w-full md:w-3/4 border-r-2'>
-
+      <div className=' flex flex-col h-screen bg-light_bg  w-full md:w-3/4 md:border-r-2 pr-2 md:pr-4'>
         {/* Top Section */}
-        <div className='flex flex-col gap-4 h-1/4'>
+        <div className='flex flex-col gap-2 '>
           <div className='flex'>
-            <Profile name={groupData.name} email={displayText} image={'/avatar.jpg'} line={false} />
-            <div className='mt-8 ml-auto flex gap-6 items-center justify-center text-primary'>
-              <BsFillTelephoneFill className='text-2xl' />
-              <BiSolidVideo className='text-3xl' />
-              <BsInfoCircleFill className='text-2xl' />
+            <Profile name={groupData.name} email={displayText} image={'/group.jpg'} line={false} />
+            <div className='ml-auto flex gap-6 items-center justify-center text-primary '>
+            <BsFillTelephoneFill className='text-xl md:text-xl' />
+              <BiSolidVideo className='text-2xl md:text-2xl' />
+              <BsInfoCircleFill className='text-xl md:text-xl' />
             </div>
           </div>
           <div className='h-[2px] bg-slate-300 bg-opacity-50'></div>
@@ -75,14 +74,14 @@ const initialMessages=groupData.messages;
         </div>
 
         {/* Bottom Section */}
-        <div className='py-4 h-1/4'>
+        <div className='py-2 md:py-4 '>
           <ChatInput groupId={groupId} senderId={session.user.id} />
         </div>
 
       </div>
 
       <div className='hidden md:flex w-1/3'>
-        <ChatDetailsBar groupData={groupData} image={'/avatar.jpg'} friendId={groupData._id} />
+        <ChatDetailsBar groupData={groupData} image={'/group.jpg'} friendId={groupData._id} />
       </div>
 
     </div>

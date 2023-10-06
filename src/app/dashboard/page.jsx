@@ -11,6 +11,7 @@ import * as yup from 'yup'
 import toast from 'react-hot-toast';
 import { AlignRight } from 'lucide-react';
 import Sidebar from '@/components/Sidebar';
+import Header from '@/components/Header';
 
 const Dashboard = () => {
   const [create, setCreate] = useState('')
@@ -80,13 +81,10 @@ const Dashboard = () => {
   return (
 
     <div className=' flex flex-col text-sm gap-3 bg-light_bg h-full relative'>
-   
       {/* Good Morning Header */}
-      
+      <Header />
       {/* recent chats  */}
-
       <div className='flex flex-col-reverse md:flex-col'>
-
         <div className=' flex flex-col'>
           <h2 className=" text-primary font-semibold">Recent Chats</h2>
           <div className='flex gap-4 py-4 bg-light_bg_chat px-4 cursor-pointer'>

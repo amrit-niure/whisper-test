@@ -47,7 +47,10 @@ const page = async () => {
     }
 
     return (
-      <div className='px-8 py-8 flex flex-col gap-3 bg-light_bg h-full'>
+      <div className=' h-full flex flex-col gap-3 bg-light_bg '>
+        <div className=''>
+        <Header />
+        </div>
       {/* list box */}
       <div>
         <h1 className='text-big font-semibold'>Incoming Friend Requests</h1>

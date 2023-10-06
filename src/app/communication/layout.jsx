@@ -17,8 +17,10 @@ const layout = async ({ children }) => {
                 <div className='hidden md:flex w-1/5 '>
                     <Sidebar />
                 </div>
-                <div className='w-full md:w-4/5   px-8 py-4 flex flex-col gap-3 bg-light_bg '>
-                    <Header />
+                <div className='w-full md:w-4/5 h-full flex flex-col gap-3 bg-light_bg '>
+                    <div className='md:hidden px-4 py-2'>
+                        <Header />
+                    </div>
                     {children}
                 </div>
             </div>

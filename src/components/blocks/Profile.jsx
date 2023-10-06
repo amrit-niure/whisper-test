@@ -4,8 +4,8 @@ import React from 'react'
 const Profile = ({name,image="/avatar.jpg",email,line=true}) => {
 
   return (
-    <div className='flex gap-4  flex-col px-4 pt-8'>
-      <div className='flex gap-2 items-center'>
+    <div className='flex gap-2 flex-col  pt-2 md:pt-4 '>
+      <div className='flex gap-2 items-center '>
         { <Image
           src={image}
           alt="User Photo"
@@ -13,7 +13,6 @@ const Profile = ({name,image="/avatar.jpg",email,line=true}) => {
           height={50}
           className='rounded-full'
         />}
-      
         <div>
           <h2 className='text-md font-semibold '>{name}</h2>
           <p className='text-sm text-secondary'>{email}</p>
