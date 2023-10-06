@@ -9,8 +9,12 @@ import Link from 'next/link';
 import axios from 'axios';
 
 import SidebarLoading from './Loading/SidebarLoading';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleModal } from '@/state/modalSlice';
 
 const Sidebar = () => {
+  const dispatch = useDispatch()
+
   const { data, status } = useSession()
   const userId = data?.user.id
   const [show, setShow] = useState(false)
@@ -49,8 +53,12 @@ const Sidebar = () => {
       <div >
         <h2 className=" text-primary font-semibold mb-2">Dashboard</h2>
         <ul>
-          <Link href={'/dashboard'}><li className=' pl-4 py-2 flex gap-2 hover:bg-light_bg_chat cursor-pointer'><GrHomeRounded className='text-xl  text-primary' /> Home</li> </Link>
-          <Link href={'/request'}>  <li className=' pl-4 pr-4 py-2 flex gap-2 hover:bg-light_bg_chat cursor-pointer'> <UserPlus className='text-xl  text-primary' /> Requests   {user.incoming_request?.length !== 0 && <span className='bg-primary text-postitive rounded-full w-5 h-5 flex items-center justify-center text-small ml-auto'>  {user.incoming_request?.length}</span>} </li></Link>
+          <Link href={'/dashboard'}><li className=' pl-4 py-2 flex gap-2 hover:bg-light_bg_chat cursor-pointer         '
+          onClick={() =>  dispatch(toggleModal())}
+          ><GrHomeRounded className='text-xl  text-primary' /> Home</li> </Link>
+          <Link href={'/request'}>  <li className=' pl-4 pr-4 py-2 flex gap-2 hover:bg-light_bg_chat cursor-pointer'
+             onClick={() =>  dispatch(toggleModal())}
+          > <UserPlus className='text-xl  text-primary' /> Requests   {user.incoming_request?.length !== 0 && <span className='bg-primary text-postitive rounded-full w-5 h-5 flex items-center justify-center text-small ml-auto'>  {user.incoming_request?.length}</span>} </li></Link>
         </ul>
       </div>
 
@@ -65,6 +73,7 @@ const Sidebar = () => {
                 className='relative'
               ><li
                 className=" pl-4 pr-4 py-2 flex gap-2 items-center hover:bg-light_bg_chat cursor-pointer relative "
+                onClick={() =>  dispatch(toggleModal())}
               >
                   <div className='flex gap-2 items-center'>
                     <span>{data && <Image
@@ -92,6 +101,7 @@ const Sidebar = () => {
               <Link href={`/groupchat/${group._id}`} key={group._id}>
               <li
                 className=" pl-4 py-2 flex gap-2 hover:bg-light_bg_chat cursor-pointer"
+                onClick={() =>  dispatch(toggleModal())}
               >
                 <span>{group.name}</span>
               </li>

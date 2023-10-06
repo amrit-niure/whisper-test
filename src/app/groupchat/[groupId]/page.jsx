@@ -11,6 +11,7 @@ import { authOptions } from '@/lib/auth'
 import axios from 'axios'
 import { cookies } from 'next/headers'
 import Message from '@/components/Message'
+import Back from '@/components/blocks/Back'
 
 const page = async ({ params }) => {
   const { groupId } = params
@@ -37,7 +38,7 @@ const page = async ({ params }) => {
   }
   const groupData = await fetchGroup(groupId, cookie);
 
-const initialMessages=groupData.messages;
+  const initialMessages = groupData.messages;
 
   // Extract names of the first two members
   const firstTwoNames = groupData.members.slice(0, 2).map(member => member.name);
@@ -57,15 +58,16 @@ const initialMessages=groupData.messages;
       <div className=' flex flex-col h-screen bg-light_bg  w-full md:w-3/4 md:border-r-2 pr-2 md:pr-4'>
         {/* Top Section */}
         <div className='flex flex-col gap-2 '>
-          <div className='flex'>
+          <div className='flex items-center pb-2 border-b-2 gap-2'>
+            <Back />
             <Profile name={groupData.name} email={displayText} image={'/group.jpg'} line={false} />
             <div className='ml-auto flex gap-6 items-center justify-center text-primary '>
-            <BsFillTelephoneFill className='text-xl md:text-xl' />
+              <BsFillTelephoneFill className='text-xl md:text-xl' />
               <BiSolidVideo className='text-2xl md:text-2xl' />
               <BsInfoCircleFill className='text-xl md:text-xl' />
             </div>
           </div>
-          <div className='h-[2px] bg-slate-300 bg-opacity-50'></div>
+      
         </div>
 
         {/* Middle Section (Flex-1 to take up remaining space) */}

@@ -12,6 +12,8 @@ import axios from 'axios'
 import { cookies } from 'next/headers'
 import Message from '@/components/Message'
 import Header from '@/components/Header'
+import { ChevronLeft } from 'lucide-react'
+import Back from '@/components/blocks/Back'
 
 const page = async ({ params }) => {
   const { chatId } = params
@@ -73,7 +75,8 @@ const page = async ({ params }) => {
       <div className='flex flex-col h-screen  bg-light_bg w-full md:w-3/4 md:border-r-2'>
         {/* Top Section */}
         <div className='flex flex-col gap-2 md:gap-2 '>
-          <div className='flex'>
+          <div className='flex items-center pb-2 border-b-2 gap-2'>
+            <Back />
             <Profile name={chatPartner.name} email={chatPartner.email} image={chatPartner.image} line={false} />
             <div className='ml-auto flex gap-6 items-center justify-center text-primary'>
               <BsFillTelephoneFill className='text-xl md:text-xl' />
@@ -81,7 +84,7 @@ const page = async ({ params }) => {
               <BsInfoCircleFill className='text-xl md:text-xl' />
             </div>
           </div>
-          <div className='h-[2px] bg-slate-300 bg-opacity-50'></div>
+
         </div>
 
         {/* Middle Section (Flex-1 to take up remaining space) */}

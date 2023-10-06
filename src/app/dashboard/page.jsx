@@ -9,11 +9,11 @@ import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup'
 import toast from 'react-hot-toast';
-import { AlignRight } from 'lucide-react';
-import Sidebar from '@/components/Sidebar';
 import Header from '@/components/Header';
 
+
 const Dashboard = () => {
+
   const [create, setCreate] = useState('')
   const [showSidebar, setShowSidebar] = useState(false)
   const { data, status } = useSession()
