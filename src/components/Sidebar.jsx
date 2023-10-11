@@ -11,6 +11,7 @@ import axios from 'axios';
 import SidebarLoading from './Loading/SidebarLoading';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '@/state/modalSlice';
+import { pusherClient } from '@/lib/pusherServer';
 
 const Sidebar = () => {
   const dispatch = useDispatch()
@@ -21,6 +22,30 @@ const Sidebar = () => {
   const [user, setUser] = useState({})
   const [friends, setFriends] = useState([])
   const [loading, setLoading] = useState(true)
+
+  const [unseenRequestCount, setUnseenRequestCount] = useState(
+  0
+  )
+  const addHandler = () => {
+    setUnseenRequestCount(prev => prev + 1)
+    // alert("Triggred")
+  }
+  const acceptHandler = () => {
+    setUnseenRequestCount(prev => prev - 1)
+  }
+  useEffect(() => {
+    pusherClient.subscribe("add-channel")
+    // pusherClient.subscribe("accept_deny_channel")
+    pusherClient.bind("add-event", addHandler)
+    // pusherClient.bind("accept_deny_event", acceptHandler)
+    return () => {
+      pusherClient.unsubscribe("add-channel")
+      // pusherClient.unsubscribe("accept_deny_channel")
+      pusherClient.unbind("add-event", addHandler)
+      // pusherClient.unbind("accept_deny_event", acceptHandler)
+    }
+  }, [userId])
+
   useEffect(() => {
     if (data) {
       const getUserData = async () => {
@@ -58,7 +83,7 @@ const Sidebar = () => {
           ><GrHomeRounded className='text-xl  text-primary' /> Home</li> </Link>
           <Link href={'/request'}>  <li className=' pl-4 pr-4 py-2 flex gap-2 hover:bg-light_bg_chat cursor-pointer'
              onClick={() =>  dispatch(toggleModal())}
-          > <UserPlus className='text-xl  text-primary' /> Requests   {user.incoming_request?.length !== 0 && <span className='bg-primary text-postitive rounded-full w-5 h-5 flex items-center justify-center text-small ml-auto'>  {user.incoming_request?.length} 2 </span>} </li></Link>
+          > <UserPlus className='text-xl  text-primary' /> Requests   <span className='bg-primary text-postitive rounded-full w-5 h-5 flex items-center justify-center text-small ml-auto'>{unseenRequestCount} </span> </li></Link>
         </ul>
       </div>
 

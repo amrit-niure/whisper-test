@@ -8,6 +8,7 @@ import axios from 'axios'
 import { Toaster, toast } from 'react-hot-toast'
 import { pusherClient } from '@/lib/pusherServer'
 
+
 const IncomingRequest = ({ incoming_request, group_invitation, userId }) => {
     const router = useRouter()
     const [friendRequests, setFriendRequests] = useState([])
@@ -18,6 +19,7 @@ const IncomingRequest = ({ incoming_request, group_invitation, userId }) => {
         } else {
             setGroupRequests(group_invitation);
         }
+
     }, [incoming_request, group_invitation])
 
     // realtime 
@@ -26,9 +28,8 @@ const IncomingRequest = ({ incoming_request, group_invitation, userId }) => {
             setFriendRequests((prev) => [...prev, { _id, name, email }])
         }
         const groupRequestHandler = ({ _id, name }) => {
-            setGroupRequests((prev) => [...prev, { _id, name }])
+            setGroupRequests((prev) => [...prev, { _id, name }]) 
         }
-
         pusherClient.subscribe('incoming-friend-request-channel')
         pusherClient.subscribe('incoming-group-request-channel')
 
@@ -143,8 +144,6 @@ return (
                                     </div>
                                 </div>
                             )}
-
-
                         </div>
                     </div>
                 )))

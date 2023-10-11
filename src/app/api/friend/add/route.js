@@ -68,6 +68,8 @@ export async function POST(req) {
         name : session.user.name,  
         email : session.user.email  
     })
+    // implement realtime functionality here
+    pusherServer.trigger("add-channel", 'add-event',{})
 
     // add the request to the requested user in database
     try {
