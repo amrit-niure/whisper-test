@@ -1,29 +1,19 @@
 'use client'
 import { Sun } from '@/components/Icons';
 import React from 'react'
-import Sidebar from './Sidebar';
 import { AlignRight } from 'lucide-react'
-import { useState } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import {toggleModal} from '@/state/modalSlice'
+import MobileSidebar from './blocks/MobileSidebar';
 const Header = ({ line = true }) => {
   const dispatch = useDispatch()
-  const { isOpen } = useSelector((store) => store.modal)
   let today = new Date();
   let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   today = today.toLocaleDateString("en-US", options);
   return (
-    <div className='flex flex-col  md:gap-1 gap-2 py-4 ' >
-      {isOpen &&
-        <div className='absolute left-0 top-0 z-50 h-[100vh] md:hidden '>
-          <div
-            onClick={() => dispatch(toggleModal())}
-            className=' absolute -right-14 top-10 cursor-pointer bg-primary text-light_bg px-2 py-1'
-          >
-            Close
-          </div>
-          <Sidebar />
-        </div>}
+    <div className='flex flex-col  md:gap-1 gap-2 py-2 ' >
+   <MobileSidebar />
       <div className='flex items-center justify-between '>
         <div className='flex gap-4'>
           <div className='flex items-center md:hidden gap-2' onClick={() =>  dispatch(toggleModal())}>

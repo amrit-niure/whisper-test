@@ -48,7 +48,7 @@ const Sidebar = () => {
   }
 
   return (
-    <div className="md:flex w-full bg-light_bg h-full  px-4 text-sm   flex-col gap-2 border-r-2">
+    <div className="flex w-full bg-light_bg h-full  px-4 text-sm py-2 md:py-0 flex-col gap-2 ">
       {<Profile name={data?.user.name} email={data?.user.email} image={data?.user.image} />}
       <div >
         <h2 className=" text-primary font-semibold mb-2">Dashboard</h2>
@@ -58,7 +58,7 @@ const Sidebar = () => {
           ><GrHomeRounded className='text-xl  text-primary' /> Home</li> </Link>
           <Link href={'/request'}>  <li className=' pl-4 pr-4 py-2 flex gap-2 hover:bg-light_bg_chat cursor-pointer'
              onClick={() =>  dispatch(toggleModal())}
-          > <UserPlus className='text-xl  text-primary' /> Requests   {user.incoming_request?.length !== 0 && <span className='bg-primary text-postitive rounded-full w-5 h-5 flex items-center justify-center text-small ml-auto'>  {user.incoming_request?.length}</span>} </li></Link>
+          > <UserPlus className='text-xl  text-primary' /> Requests   {user.incoming_request?.length !== 0 && <span className='bg-primary text-postitive rounded-full w-5 h-5 flex items-center justify-center text-small ml-auto'>  {user.incoming_request?.length} 2 </span>} </li></Link>
         </ul>
       </div>
 

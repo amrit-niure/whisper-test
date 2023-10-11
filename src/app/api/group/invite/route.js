@@ -1,5 +1,6 @@
 import { authOptions } from "@/lib/auth"
 import connectionDB from "@/lib/db"
+import { pusherServer } from "@/lib/pusherServer"
 import Room from "@/modal/roomSchema"
 import User from "@/modal/userSchema"
 
@@ -47,6 +48,14 @@ export async function POST(req) {
                 return NextResponse.json({ status: 'success', message: "Invitation already sent!" }, { status: 200 });
             }
         }
+
+
+   // implement realtime functionality here
+   pusherServer.trigger("incoming-group-request-channel", 'incoming-group-request-event', {
+    _id: room._id ,
+    name : group, 
+})
+
         // create invitaiton if there is no previous invitation to the same group 
         user.group_invitation.push(room._id);
         await user.save();

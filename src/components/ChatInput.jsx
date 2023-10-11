@@ -7,7 +7,6 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 
 const ChatInput = ({chatId, recipientId ,groupId,senderId}) => {
-  const textareaRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false)
   const [input, setInput] = useState("");
   const sendMessage = async () => {
@@ -21,7 +20,6 @@ const ChatInput = ({chatId, recipientId ,groupId,senderId}) => {
         await axios.post(`/api/group/${groupId}/send-message`,{text:input , sender: senderId })
       }
         setInput('')
-        textareaRef.current?.focus()
     } catch (error) {
         toast.error("Something went wrong.Please try again later." )
     }finally{
@@ -36,8 +34,6 @@ const ChatInput = ({chatId, recipientId ,groupId,senderId}) => {
         <Image size={26} className='cursor-pointer' />
         <HiOutlineGif className='text-3xl cursor-pointer' />
          <ReactTextareaAutosize
-          ref={textareaRef}
-          onClick={() => textareaRef.current?.focus()}
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {
               e.preventDefault();

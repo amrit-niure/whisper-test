@@ -14,6 +14,7 @@ import Message from '@/components/Message'
 import Header from '@/components/Header'
 import { ChevronLeft } from 'lucide-react'
 import Back from '@/components/blocks/Back'
+import MobileSidebar from '@/components/blocks/MobileSidebar'
 
 const page = async ({ params }) => {
   const { chatId } = params

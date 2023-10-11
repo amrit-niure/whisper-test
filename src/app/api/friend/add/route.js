@@ -1,12 +1,12 @@
 import { authOptions } from "@/lib/auth"
 import connectionDB from "@/lib/db"
+import { pusherServer } from "@/lib/pusherServer"
 import User from "@/modal/userSchema"
 import { getServerSession } from "next-auth"
 import { NextResponse } from "next/server"
 
 export async function POST(req) {
     const { email } = await req.json()
-console.log(email)
     if (!email) {
         return new Response("Please provide an email address", { status: 400 })
     }
@@ -63,14 +63,18 @@ console.log(email)
     }
 
     // implement realtime functionality here
-
+    pusherServer.trigger("incoming-friend-request-channel", 'incoming-friend-request-event', {
+        _id: session.user.id,
+        name : session.user.name,  
+        email : session.user.email  
+    })
 
     // add the request to the requested user in database
     try {
-        await User.findByIdAndUpdate(requestedUser._id,{$push : {incoming_request : session_user._id}}, { new: true, useFindAndModify: false })
-       
+        await User.findByIdAndUpdate(requestedUser._id, { $push: { incoming_request: session_user._id } }, { new: true, useFindAndModify: false })
+
     } catch (error) {
-        console.log("Error While writing to databse",error)
+        console.log("Error While writing to databse", error)
     }
     return NextResponse.json({ status: 'success', message: `Request succesfully sent to  ${requestedUser.name}` }, { status: 200 });
 }

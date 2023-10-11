@@ -30,8 +30,7 @@ export default async function RootLayout({ children }) {
                 <div className='hidden md:flex w-1/5 '>
                   <Sidebar />
                 </div>
-         
-                <div className='w-full md:w-4/5 h-screen px-2 md:px-4 flex flex-col gap-3 bg-light_bg'>
+                <div className='w-full md:w-4/5 h-screen px-2 md:px-4 flex flex-col gap-3 bg-light_bg border-l-2 '>
                   {children}
                 </div>
               </div>

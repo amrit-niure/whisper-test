@@ -3,12 +3,13 @@ import { cn } from '@/lib/utils'
 import { format, parseISO } from 'date-fns'
 import Image from 'next/image'
 import React, { useEffect, useRef, useState } from 'react'
+import { pusherClient } from '@/lib/pusherServer'
 
 const Message = ({ initialMessages, sessionId,userImage, partnerImage}) => {
 
     const [messages, setMessages] = useState(initialMessages)
+    
 
-    const scrollDownRef = useRef(null)
     const formatTimestamp = (timestamp) => {
         if (!timestamp) {
             return '';
@@ -21,7 +22,6 @@ const Message = ({ initialMessages, sessionId,userImage, partnerImage}) => {
     }
     return (
         <div className='text-sm flex flex-grow flex-col gap-2 '>
-            <div ref={scrollDownRef} />
             {messages?.map((message, index) => {
                 const isCurrentUser = partnerImage ? message.sender === sessionId : message.sender._id === sessionId
                 const hasNextMessageFromSameUser = messages[index + 1]?.sender === messages[index].sender
