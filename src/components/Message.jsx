@@ -5,18 +5,31 @@ import Image from 'next/image'
 import React, { useEffect, useRef, useState } from 'react'
 import { pusherClient } from '@/lib/pusherServer'
 
-const Message = ({ initialMessages, sessionId,userImage, partnerImage}) => {
+const Message = ({ initialMessages, sessionId,userImage, partnerImage,chatId}) => {
 
     const [messages, setMessages] = useState(initialMessages)
     
-
+    useEffect(() => {
+        pusherClient.subscribe("message_channel")
+        // 
+        const messageHandler = ({msg,prevChatId}) => {
+          if(chatId === prevChatId){
+            setMessages((prev) => [...prev, msg])
+          }
+        }
+  
+        pusherClient.bind("message_event", messageHandler)
+        return () => {
+          pusherClient.unsubscribe('message_channel')
+          pusherClient.unbind('message_event', messageHandler)
+        }
+      }, [chatId])
     const formatTimestamp = (timestamp) => {
         if (!timestamp) {
             return '';
         }
         return format(parseISO(timestamp), 'HH:mm')
     }
-    console.log(initialMessages)
     if(!initialMessages){
         return(<div>Loading...</div>)
     }

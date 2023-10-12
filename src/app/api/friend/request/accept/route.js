@@ -1,5 +1,6 @@
 import { authOptions } from "@/lib/auth"
 import connectionDB from "@/lib/db"
+import { pusherServer } from "@/lib/pusherServer"
 import Chat from "@/modal/chatSchema"
 import User from "@/modal/userSchema"
 import mongoose from "mongoose"
@@ -47,6 +48,9 @@ export async function POST(req) {
     if (areAlreadyFriends) {
         return NextResponse.json({ status: 'success', message: `Your both are already friends` }, { status: 200 });
     }
+
+    // realtime
+    pusherServer.trigger("accept-deny-channel", 'accept-deny-event',friend)
 
     try {
     // Create a new chat document with both participants

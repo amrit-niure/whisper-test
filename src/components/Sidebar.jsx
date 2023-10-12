@@ -23,26 +23,26 @@ const Sidebar = () => {
   const [friends, setFriends] = useState([])
   const [loading, setLoading] = useState(true)
 
-  const [unseenRequestCount, setUnseenRequestCount] = useState(
-  0
-  )
+  const [unseenRequestCount, setUnseenRequestCount] = useState(null)
   const addHandler = () => {
     setUnseenRequestCount(prev => prev + 1)
     // alert("Triggred")
   }
-  const acceptHandler = () => {
+  const acceptHandler = (payload) => {
     setUnseenRequestCount(prev => prev - 1)
+    setFriends(prev => [...prev,payload])
+    console.log('Friends',friends)
   }
   useEffect(() => {
     pusherClient.subscribe("add-channel")
-    // pusherClient.subscribe("accept_deny_channel")
+    pusherClient.subscribe("accept-deny-channel")
     pusherClient.bind("add-event", addHandler)
-    // pusherClient.bind("accept_deny_event", acceptHandler)
+    pusherClient.bind("accept-deny-event", acceptHandler)
     return () => {
       pusherClient.unsubscribe("add-channel")
-      // pusherClient.unsubscribe("accept_deny_channel")
+      pusherClient.unsubscribe("accept-deny-channel")
       pusherClient.unbind("add-event", addHandler)
-      // pusherClient.unbind("accept_deny_event", acceptHandler)
+      pusherClient.unbind("accept-deny-event", acceptHandler)
     }
   }, [userId])
 
@@ -55,7 +55,8 @@ const Sidebar = () => {
           response = await axios.get(apiUrl);
           setUser(response.data.user);
           setFriends(response.data.user.friends)
-
+          const number = response.data.user.incoming_request.length + response.data.user.group_invitation.length 
+          setUnseenRequestCount(number)
         } catch (error) {
           console.error('Error:', error);
         } finally {

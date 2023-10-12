@@ -1,5 +1,6 @@
 import { authOptions } from "@/lib/auth"
 import connectionDB from "@/lib/db"
+import { pusherServer } from "@/lib/pusherServer"
 import Chat from "@/modal/chatSchema"
 import Message from "@/modal/messageSchema"
 import User from "@/modal/userSchema"
@@ -50,9 +51,16 @@ export async function POST(req, { params }) {
 
   // finally send the message 
   const msg = new Message({
-    sender: session.user.id,
+    sender: sender._id,
     text: text,
   })
+
+  if(chatId === `${recipientId}--${sender._id}` || `${sender._id}--${recipientId}`){
+  pusherServer.trigger("message_channel", "message_event", {
+    msg, prevChatId: chatId
+  })
+}
+
   try {
 
     await msg.save()

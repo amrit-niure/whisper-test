@@ -1,5 +1,6 @@
 import { authOptions } from "@/lib/auth"
 import connectionDB from "@/lib/db"
+import { pusherServer } from "@/lib/pusherServer"
 import User from "@/modal/userSchema"
 import { getServerSession } from "next-auth"
 import { NextResponse } from "next/server"
@@ -17,8 +18,8 @@ export async function POST(req) {
     const session_user = await User.findById(session.user.id)
     const friend = await User.findById(id)
     if (!friend) {
-         // delete the incoming request of the sender if the sender has deleted the account after sending the req
-         const updatedUser = await User.findByIdAndUpdate(
+        // delete the incoming request of the sender if the sender has deleted the account after sending the req
+        const updatedUser = await User.findByIdAndUpdate(
             session_user._id,
             { $pull: { incoming_request: id } },
             { new: true }
@@ -35,6 +36,11 @@ export async function POST(req) {
     if (!isIncomingRequest) {
         return NextResponse.json({ status: 'success', message: `You No longer have request of this user.` }, { status: 404 });
     }
+
+    // realtime
+    pusherServer.trigger("accept-deny-channel", 'accept-deny-event', {})
+
+
     try {
         // delete the incoming request of the sender after accepting the request
         const updatedUser = await User.findByIdAndUpdate(
