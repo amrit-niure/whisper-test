@@ -12,6 +12,7 @@ import SidebarLoading from './Loading/SidebarLoading';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '@/state/modalSlice';
 import { pusherClient } from '@/lib/pusherServer';
+import { chatHerfConstructor } from '@/lib/utils';
 
 const Sidebar = () => {
   const dispatch = useDispatch()
@@ -95,7 +96,7 @@ const Sidebar = () => {
           </div>
           <ul className=''>
             {friends?.map((friend, index) => (
-              <Link href={`/chat/${data.user.id}--${friend._id}`} key={friend._id}
+              <Link href={`/chat/${chatHerfConstructor(data.user.id, friend._id)}`} key={friend._id}
                 className='relative'
               ><li
                 className=" pl-4 pr-4 py-2 flex gap-2 items-center hover:bg-light_bg_chat cursor-pointer relative "
