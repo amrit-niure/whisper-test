@@ -59,8 +59,8 @@ const Message = ({ initialMessages, sessionId, userImage, partnerImage, chatId,g
   return (
     <div className="text-sm flex flex-grow flex-col gap-2 mt-auto overflow-y-scroll scrollbar">
       {messages?.map((message, index) => {
-        // const isCurrentUser = partnerImage ? message.sender === sessionId : message.sender._id === sessionId
-        const isCurrentUser =  message.sender._id === sessionId
+        const isCurrentUser = partnerImage ? message.sender === sessionId : message.sender._id === sessionId
+        // const isCurrentUser =  message.sender._id === sessionId
         const hasNextMessageFromSameUser = messages[index + 1]?.sender === messages[index].sender
 
         return (
