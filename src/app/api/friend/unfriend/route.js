@@ -27,6 +27,9 @@ export async function POST(req){
     if (!areAlreadyFriends) {
         return NextResponse.json({ status: 'success', message: `Your both are not friends` }, { status: 401 });
     }
+
+// delete message between two users when unfriended and perform realtime functionality in sidebar to remove the friends by removing the friend form the friends state variable 
+
     try {
         // delete the friends of both user
         const updatedUser1 = await User.findByIdAndUpdate(
