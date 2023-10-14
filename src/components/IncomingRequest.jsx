@@ -7,9 +7,11 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Toaster, toast } from 'react-hot-toast'
 import { pusherClient } from '@/lib/pusherServer'
+import { useSession } from 'next-auth/react'
 
 
 const IncomingRequest = ({ incoming_request, group_invitation, userId }) => {
+    const { data, status } = useSession()
     const router = useRouter()
     const [friendRequests, setFriendRequests] = useState([])
     const [groupRequests, setGroupRequests] = useState([])
@@ -24,8 +26,8 @@ const IncomingRequest = ({ incoming_request, group_invitation, userId }) => {
 
     // realtime 
     useEffect(() => {
-        const friendRequestHandler = ({ _id, name, email }) => {
-            setFriendRequests((prev) => [...prev, { _id, name, email }])
+        const friendRequestHandler = ({ _id, name, email}) => {
+                setFriendRequests((prev) => [...prev, { _id, name, email }])
         }
         const groupRequestHandler = ({ _id, name }) => {
             setGroupRequests((prev) => [...prev, { _id, name }]) 

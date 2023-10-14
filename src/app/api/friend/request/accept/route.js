@@ -50,7 +50,7 @@ export async function POST(req) {
     }
 
     // realtime
-    pusherServer.trigger("accept-deny-channel", 'accept-deny-event',friend)
+    pusherServer.trigger("accept-deny-channel", 'accept-deny-event',{friend : friend, user : session_user})
 
     try {
     // Create a new chat document with both participants

@@ -66,10 +66,11 @@ export async function POST(req) {
     pusherServer.trigger("incoming-friend-request-channel", 'incoming-friend-request-event', {
         _id: session.user.id,
         name : session.user.name,  
-        email : session.user.email  
+        email : session.user.email  ,
+        userId  : user._id
     })
     // implement realtime functionality here
-    pusherServer.trigger("add-channel", 'add-event',{})
+    pusherServer.trigger("add-channel", 'add-event',{userId : user._id})
 
     // add the request to the requested user in database
     try {

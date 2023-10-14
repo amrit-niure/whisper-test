@@ -11,10 +11,8 @@ import { authOptions } from '@/lib/auth'
 import axios from 'axios'
 import { cookies } from 'next/headers'
 import Message from '@/components/Message'
-import Header from '@/components/Header'
-import { ChevronLeft } from 'lucide-react'
 import Back from '@/components/blocks/Back'
-import MobileSidebar from '@/components/blocks/MobileSidebar'
+
 
 const page = async ({ params }) => {
   const { chatId } = params
@@ -89,7 +87,7 @@ const page = async ({ params }) => {
         </div>
 
         {/* Middle Section (Flex-1 to take up remaining space) */}
-        <div className='  overflow-y-scroll flex-1 scrollbar  border-2 flex'>
+        <div className='  overflow-y-scroll flex-1 scrollbar flex'>
           <Message sessionId={session.user.id} initialMessages={initialMessages} userImage={session.user.image} partnerImage={chatPartner.image}  chatId={chatId} />
         </div>
 

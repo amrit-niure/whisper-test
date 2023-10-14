@@ -17,7 +17,7 @@ const CollapsibleSection = ({ title, items, icon, children }) => {
   return (
     <div className=''>
       <h2 onClick={toggleContent} className='cursor-pointer flex items-center gap-2 hover:bg-light_bg_chat py-2 px-2'>
-        {icon} {/* Render icon for the top-level item */}
+        {icon} 
         {title}
       </h2>
       {isContentVisible && (

@@ -37,7 +37,6 @@ const page = async () => {
     }
   });
 
-
     const incoming_request = response.data.user.incoming_request;
     const group_invitation = response.data.user.group_invitation;
     console.log("Incoming Request request/page.jsx", incoming_request);
@@ -62,7 +61,6 @@ const page = async () => {
       <div>
         <h1 className='text-big font-semibold'>Incoming Group Requests</h1>
       </div>
-
       <div>
        <IncomingRequest group_invitation={group_invitation} userId={session.user.id}/>
       </div>

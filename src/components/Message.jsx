@@ -8,7 +8,7 @@ import { pusherClient } from '@/lib/pusherServer'
 const Message = ({ initialMessages, sessionId, userImage, partnerImage, chatId,groupId }) => {
   const [messages, setMessages] = useState(initialMessages)
   const scrollDownRef = useRef(null)
-
+const [loading,setLoading] = useState(false)
   useLayoutEffect(() => {
     // Scroll to the bottom after the DOM has been painted
     if (scrollDownRef.current) {
@@ -20,7 +20,6 @@ const Message = ({ initialMessages, sessionId, userImage, partnerImage, chatId,g
     pusherClient.subscribe('message_channel')
     pusherClient.subscribe('group_message_channel')
     
-
     const messageHandler = ({ msg, prevChatId }) => {
       if (chatId === prevChatId) {
         setMessages((prev) => [...prev, msg])
@@ -35,7 +34,6 @@ const Message = ({ initialMessages, sessionId, userImage, partnerImage, chatId,g
 
     pusherClient.bind('message_event', messageHandler)
     pusherClient.bind('group_message_event', groupMessageHandler)
-    console.log(messages)
     return () => {
       pusherClient.unsubscribe('message_channel')
       pusherClient.unsubscribe('group_message_channel')
