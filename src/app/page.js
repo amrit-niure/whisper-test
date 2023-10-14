@@ -1,9 +1,9 @@
-'use client'
-export default function Home() {
+import React from 'react'
+
+const page = () => {
   return (
-   <main>
-    Created BY  : Amrit Niure 
-    Email       : niureamrit2@gmail.com
-    </main>
+    <div>Amrit Niure</div>
   )
 }
+
+export default page
