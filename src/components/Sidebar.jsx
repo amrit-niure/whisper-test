@@ -23,21 +23,22 @@ const Sidebar = () => {
   const [user, setUser] = useState({})
   const [friends, setFriends] = useState([])
   const [loading, setLoading] = useState(true)
- 
+
   const [unseenRequestCount, setUnseenRequestCount] = useState()
   const addHandler = (payload) => {
-  if(payload.userId === data.user.id){
-    setUnseenRequestCount(prev => prev + 1)
-  }
+    if (payload.userId === data.user.id) {
+      setUnseenRequestCount(prev => prev + 1)
+    }
   }
   const acceptHandler = (payload) => {
     setUnseenRequestCount(prev => prev - 1)
-console.log(payload)
-if(data.user.id === payload.user._id){
-
-  setFriends(prev => [...prev, payload.friend])
-}
-    
+    console.log(payload)
+    if (data.user.id === payload.user._id) {
+      setFriends(prev => [...prev, payload.friend])
+    }
+    if (data.user.id === payload.friend._id) {
+      setFriends(prev => [...prev, payload.user])
+    }
   }
   useEffect(() => {
     pusherClient.subscribe("add-channel")
@@ -88,13 +89,13 @@ if(data.user.id === payload.user._id){
           <Link href={'/dashboard'}><li className=' pl-4 py-2 flex gap-2 hover:bg-light_bg_chat cursor-pointer         '
             onClick={() => dispatch(toggleModal())}
           ><GrHomeRounded className='text-xl  text-primary' /> Home</li> </Link>
-          <Link href={'/request'}>  
-          <li className=' pl-4 pr-4 py-2 flex gap-2 hover:bg-light_bg_chat cursor-pointer'
-            onClick={() => dispatch(toggleModal())}
-          > 
-          {/* <UserPlus className='text-xl  text-primary' /> Requests <span className='bg-primary text-postitive rounded-full w-5 h-5 flex items-center justify-center text-small ml-auto'>{unseenRequestCount} </span> */}
-          <UserPlus className='text-xl  text-primary' /> Requests { unseenRequestCount > 0 ? <span className='bg-primary text-postitive rounded-full w-5 h-5 flex items-center justify-center text-small ml-auto'>{unseenRequestCount} </span> : null }
-           </li>
+          <Link href={'/request'}>
+            <li className=' pl-4 pr-4 py-2 flex gap-2 hover:bg-light_bg_chat cursor-pointer'
+              onClick={() => dispatch(toggleModal())}
+            >
+              {/* <UserPlus className='text-xl  text-primary' /> Requests <span className='bg-primary text-postitive rounded-full w-5 h-5 flex items-center justify-center text-small ml-auto'>{unseenRequestCount} </span> */}
+              <UserPlus className='text-xl  text-primary' /> Requests {unseenRequestCount > 0 ? <span className='bg-primary text-postitive rounded-full w-5 h-5 flex items-center justify-center text-small ml-auto'>{unseenRequestCount} </span> : null}
+            </li>
           </Link>
         </ul>
       </div>
